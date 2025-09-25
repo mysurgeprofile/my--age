@@ -189,13 +189,13 @@
       max-width: 900px;
     }
 
-    /* 重新设计的简洁按钮样式 */
+    /* 应用第一个源码的美化按钮样式 */
     .link-item {
-      transition: transform 0.2s ease;
+      transition: transform 0.3s ease;
     }
 
     .link-item:hover {
-      transform: translateY(-2px);
+      transform: translateY(-8px);
     }
 
     .link-item a {
@@ -205,72 +205,43 @@
       justify-content: center;
       text-align: center;
       padding: 2rem 1.5rem;
-      font-size: 1.2rem;
-      font-weight: 600;
-      border-radius: 8px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      border-radius: 16px;
       text-decoration: none;
-      color: #333;
-      background: #fff;
-      border: 2px solid #e2e8f0;
+      color: #fff;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
       min-height: 140px;
-      transition: all 0.2s ease;
     }
 
     .link-item a:hover {
-      border-color: #667eea;
-      background: #f8fafc;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+      transform: scale(1.02);
     }
 
-    .link-item a:active {
-      transform: scale(0.98);
-    }
-
-    /* 不同按钮的颜色主题 */
+    /* 不同按钮的渐变颜色 */
     .link-item:nth-child(1) a {
-      border-color: #ef4444;
-      color: #ef4444;
-    }
-
-    .link-item:nth-child(1) a:hover {
-      border-color: #dc2626;
-      background: #fef2f2;
-      color: #dc2626;
+      background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+      box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
     }
 
     .link-item:nth-child(2) a {
-      border-color: #3b82f6;
-      color: #3b82f6;
-    }
-
-    .link-item:nth-child(2) a:hover {
-      border-color: #2563eb;
-      background: #eff6ff;
-      color: #2563eb;
+      background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+      box-shadow: 0 6px 20px rgba(79, 195, 247, 0.3);
     }
 
     .link-item:nth-child(3) a {
-      border-color: #10b981;
-      color: #10b981;
-    }
-
-    .link-item:nth-child(3) a:hover {
-      border-color: #059669;
-      background: #ecfdf5;
-      color: #059669;
+      background: linear-gradient(135deg, #66bb6a, #4caf50);
+      box-shadow: 0 6px 20px rgba(102, 187, 106, 0.3);
     }
 
     .link-item:nth-child(4) a {
-      border-color: #8b5cf6;
-      color: #8b5cf6;
+      background: linear-gradient(135deg, #ab47bc, #9c27b0);
+      box-shadow: 0 6px 20px rgba(171, 71, 188, 0.3);
     }
 
-    .link-item:nth-child(4) a:hover {
-      border-color: #7c3aed;
-      background: #f5f3ff;
-      color: #7c3aed;
-    }
-
-    /* 简洁的图标和文字 */
     .link-item a .icon {
       font-size: 2.5rem;
       margin-bottom: 0.8rem;
@@ -278,7 +249,7 @@
     }
 
     .link-item a .text {
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0.5px;
     }
 
@@ -354,7 +325,7 @@
 
       .link-item a {
         padding: 1.8rem 1.2rem;
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         min-height: 120px;
       }
 
@@ -408,7 +379,7 @@
 
       .link-item a {
         padding: 1.5rem 0.8rem;
-        font-size: 1rem;
+        font-size: 1.1rem;
         min-height: 110px;
       }
 
@@ -483,12 +454,9 @@
   </footer>
 
   <script>
-    // 简化的点击反馈效果
-    const linkItems = document.querySelectorAll('.link-item a');
-    
-    linkItems.forEach(link => {
-      link.addEventListener('click', function(e) {
-        // 简单的点击反馈
+    // 添加点击动画效果
+    document.querySelectorAll('.link-item a').forEach(link => {
+      link.addEventListener('click', function() {
         this.style.transform = 'scale(0.95)';
         setTimeout(() => {
           this.style.transform = '';
