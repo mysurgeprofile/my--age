@@ -20,27 +20,33 @@
       min-height: 100vh;
       color: #333;
       background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-      background-size: 400% 400%;
-      animation: gradientShift 15s ease infinite;
       overflow-x: hidden;
       position: relative;
+      /* 性能优化：启用GPU加速 */
+      transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
     }
 
-    /* 动态背景渐变动画 */
-    @keyframes gradientShift {
-      0% {
-        background-position: 0% 50%;
+    /* 优化后的背景动画 - 仅在大屏幕设备上启用 */
+    @media (min-width: 769px) and (prefers-reduced-motion: no-preference) {
+      body {
+        background-size: 400% 400%;
+        animation: gradientShift 20s ease infinite;
       }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
+      
+      @keyframes gradientShift {
+        0%, 100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
       }
     }
 
-    /* 浮动几何图形背景 */
-    .bg-shapes {
+    /* 简化的背景装饰 - 减少DOM元素 */
+    .bg-decoration {
       position: fixed;
       top: 0;
       left: 0;
@@ -48,174 +54,51 @@
       height: 100%;
       pointer-events: none;
       z-index: 0;
-      overflow: hidden;
+      opacity: 0.08;
+      /* 性能优化 */
+      contain: layout style paint;
+      will-change: transform;
     }
 
-    .shape {
-      position: absolute;
-      opacity: 0.1;
-      animation-iteration-count: infinite;
-      animation-timing-function: linear;
-    }
-
-    .shape-circle {
-      border-radius: 50%;
-      background: linear-gradient(45deg, #667eea, #764ba2);
-    }
-
-    .shape-triangle {
-      width: 0;
-      height: 0;
-      background: transparent;
-    }
-
-    .shape-triangle::before {
+    .bg-decoration::before,
+    .bg-decoration::after {
       content: '';
       position: absolute;
-      width: 0;
-      height: 0;
-      border-style: solid;
-    }
-
-    /* 不同大小和位置的形状 */
-    .shape1 {
-      width: 60px;
-      height: 60px;
-      left: 10%;
-      animation: float1 20s linear infinite;
-    }
-
-    .shape2 {
-      width: 40px;
-      height: 40px;
-      left: 20%;
-      animation: float2 25s linear infinite;
-    }
-
-    .shape3 {
-      width: 80px;
-      height: 80px;
-      left: 70%;
-      animation: float3 18s linear infinite;
-    }
-
-    .shape4 {
-      width: 50px;
-      height: 50px;
-      left: 80%;
-      animation: float4 22s linear infinite;
-    }
-
-    .shape5 {
-      width: 30px;
-      height: 30px;
-      left: 50%;
-      animation: float5 28s linear infinite;
-    }
-
-    .shape-triangle1::before {
-      border-left: 25px solid transparent;
-      border-right: 25px solid transparent;
-      border-bottom: 43px solid rgba(102, 126, 234, 0.1);
-      left: -25px;
-      top: 0;
-    }
-
-    .shape-triangle2::before {
-      border-left: 20px solid transparent;
-      border-right: 20px solid transparent;
-      border-bottom: 35px solid rgba(118, 75, 162, 0.1);
-      left: -20px;
-      top: 0;
-    }
-
-    /* 浮动动画 */
-    @keyframes float1 {
-      0% {
-        transform: translateY(100vh) rotate(0deg);
-      }
-      100% {
-        transform: translateY(-100px) rotate(360deg);
-      }
-    }
-
-    @keyframes float2 {
-      0% {
-        transform: translateY(100vh) rotate(0deg);
-      }
-      100% {
-        transform: translateY(-100px) rotate(-360deg);
-      }
-    }
-
-    @keyframes float3 {
-      0% {
-        transform: translateY(100vh) rotate(0deg);
-      }
-      100% {
-        transform: translateY(-100px) rotate(180deg);
-      }
-    }
-
-    @keyframes float4 {
-      0% {
-        transform: translateY(100vh) rotate(0deg);
-      }
-      100% {
-        transform: translateY(-100px) rotate(-180deg);
-      }
-    }
-
-    @keyframes float5 {
-      0% {
-        transform: translateY(100vh) rotate(0deg);
-      }
-      100% {
-        transform: translateY(-100px) rotate(270deg);
-      }
-    }
-
-    /* 微妙的脉冲动画 */
-    @keyframes pulse {
-      0%, 100% {
-        opacity: 0.05;
-        transform: scale(1);
-      }
-      50% {
-        opacity: 0.15;
-        transform: scale(1.1);
-      }
-    }
-
-    .shape6, .shape7, .shape8 {
-      position: absolute;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
-      animation: pulse 8s ease-in-out infinite;
+      background: radial-gradient(circle, rgba(102, 126, 234, 0.3) 0%, transparent 70%);
     }
 
-    .shape6 {
+    .bg-decoration::before {
+      width: 300px;
+      height: 300px;
+      top: 10%;
+      right: 5%;
+      animation: float-slow 25s ease-in-out infinite;
+    }
+
+    .bg-decoration::after {
       width: 200px;
       height: 200px;
-      top: 20%;
-      right: 10%;
-      animation-delay: 0s;
+      bottom: 15%;
+      left: 10%;
+      animation: float-slow 30s ease-in-out infinite reverse;
     }
 
-    .shape7 {
-      width: 150px;
-      height: 150px;
-      bottom: 30%;
-      left: 5%;
-      animation-delay: 2.5s;
+    /* 简化的浮动动画 */
+    @keyframes float-slow {
+      0%, 100% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      50% {
+        transform: translate3d(20px, -30px, 0) scale(1.1);
+      }
     }
 
-    .shape8 {
-      width: 120px;
-      height: 120px;
-      top: 60%;
-      right: 30%;
-      animation-delay: 5s;
+    /* 仅在大屏幕上显示背景装饰 */
+    @media (max-width: 768px) {
+      .bg-decoration {
+        display: none;
+      }
     }
 
     header {
@@ -226,6 +109,8 @@
       backdrop-filter: blur(10px);
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
       z-index: 10;
+      /* 性能优化 */
+      contain: layout style paint;
     }
 
     .header-content {
@@ -243,11 +128,13 @@
       object-fit: cover;
       border: 3px solid #667eea;
       box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
-      transition: transform 0.3s ease;
+      transition: transform 0.2s ease;
+      /* 性能优化 */
+      will-change: transform;
     }
 
     .avatar:hover {
-      transform: scale(1.05);
+      transform: scale(1.05) translateZ(0);
     }
 
     .title-container h1 {
@@ -262,6 +149,7 @@
       display: inline-block;
     }
 
+    /* 优化星星动画 - 减少DOM操作 */
     .title-container h1::before,
     .title-container h1::after {
       content: '★';
@@ -269,35 +157,29 @@
       top: 50%;
       transform: translateY(-50%);
       font-size: 0.8em;
-      animation: twinkle 2s ease-in-out infinite alternate;
+      opacity: 0.8;
     }
 
     .title-container h1::before {
       left: -1.2em;
-      background: linear-gradient(45deg, #FFD700, #FFA500);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation-delay: 0s;
+      color: #FFD700;
+      animation: twinkle 3s ease-in-out infinite;
     }
 
     .title-container h1::after {
       right: -1.2em;
-      background: linear-gradient(45deg, #FF69B4, #FF1493);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation-delay: 1s;
+      color: #FF69B4;
+      animation: twinkle 3s ease-in-out infinite 1.5s;
     }
 
     @keyframes twinkle {
-      0% {
-        opacity: 0.5;
-        transform: translateY(-50%) scale(0.8);
+      0%, 100% {
+        opacity: 0.4;
+        transform: translateY(-50%) scale(0.9);
       }
-      100% {
+      50% {
         opacity: 1;
-        transform: translateY(-50%) scale(1.2);
+        transform: translateY(-50%) scale(1.1);
       }
     }
 
@@ -325,11 +207,13 @@
       color: #667eea;
       font-weight: 600;
       transition: all 0.2s ease;
+      /* 性能优化 */
+      will-change: transform;
     }
 
     .badge:hover {
       background: rgba(102, 126, 234, 0.2);
-      transform: translateY(-1px);
+      transform: translateY(-1px) translateZ(0);
     }
 
     .reminder {
@@ -342,6 +226,8 @@
       border-left: 4px solid #667eea;
       position: relative;
       z-index: 5;
+      /* 性能优化 */
+      contain: layout style paint;
     }
 
     .reminder h2 {
@@ -388,13 +274,15 @@
       max-width: 900px;
     }
 
-    /* 应用第一个源码的美化按钮样式 */
     .link-item {
-      transition: transform 0.3s ease;
+      /* 性能优化：只在需要时触发GPU加速 */
+      transition: transform 0.2s ease;
+      will-change: auto;
     }
 
     .link-item:hover {
-      transform: translateY(-8px);
+      transform: translateY(-6px) translateZ(0);
+      will-change: transform;
     }
 
     .link-item a {
@@ -409,18 +297,21 @@
       border-radius: 16px;
       text-decoration: none;
       color: #fff;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
       position: relative;
       overflow: hidden;
       min-height: 140px;
+      /* 性能优化 */
+      will-change: auto;
     }
 
     .link-item a:hover {
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
-      transform: scale(1.02);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      transform: scale(1.02) translateZ(0);
+      will-change: transform;
     }
 
-    /* 不同按钮的渐变颜色 */
+    /* 按钮渐变色 */
     .link-item:nth-child(1) a {
       background: linear-gradient(135deg, #ff6b6b, #ee5a52);
       box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
@@ -464,15 +355,17 @@
       z-index: 5;
     }
 
-    /* 响应式设计 - 在移动设备上减少动画以提升性能 */
+    /* 移动端优化 */
     @media (max-width: 768px) {
-      /* 在移动设备上简化动画 */
-      .bg-shapes {
-        display: none;
+      /* 移动端关闭所有动画以提升性能 */
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
       }
-      
+
       body {
-        animation-duration: 25s; /* 减慢背景动画 */
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
       }
 
       header {
@@ -489,42 +382,9 @@
         height: 70px;
       }
 
-      .title-container h1::before,
-      .title-container h1::after {
-        font-size: 0.9em;
-      }
-
-      .title-container h1::before {
-        left: -1.5em;
-      }
-
-      .title-container h1::after {
-        right: -1.5em;
-      }
-
-      .header-badges {
-        gap: 0.5rem;
-      }
-
-      .badge {
-        padding: 0.25rem 0.6rem;
-        font-size: 0.75rem;
-      }
-
       .reminder {
         margin: 1rem 1rem 1.5rem;
         padding: 1.2rem 1.2rem;
-      }
-
-      .reminder h2 {
-        font-size: 1.4rem;
-        margin-bottom: 0.8rem;
-      }
-
-      .reminder p {
-        margin-bottom: 0.6rem;
-        font-size: 1rem;
-        line-height: 1.5;
       }
 
       .links {
@@ -538,38 +398,12 @@
         font-size: 1.2rem;
         min-height: 120px;
       }
-
-      .link-item a .icon {
-        font-size: 2.2rem;
-        margin-bottom: 0.6rem;
-      }
-
-      footer {
-        padding: 1.2rem;
-      }
     }
 
     @media (max-width: 480px) {
-      header {
-        padding: 0.6rem 1rem 1rem;
-      }
-
       .avatar {
         width: 60px;
         height: 60px;
-      }
-
-      .title-container h1::before,
-      .title-container h1::after {
-        font-size: 0.8em;
-      }
-
-      .title-container h1::before {
-        left: -1.3em;
-      }
-
-      .title-container h1::after {
-        right: -1.3em;
       }
 
       .reminder {
@@ -577,78 +411,61 @@
         margin: 0.8rem 0.8rem 1.2rem;
       }
 
-      .reminder h2 {
-        font-size: 1.3rem;
-        margin-bottom: 0.6rem;
-      }
-
-      .reminder p {
-        font-size: 1rem;
-        margin-bottom: 0.5rem;
-      }
-
       .link-item a {
         padding: 1.5rem 0.8rem;
         font-size: 1.1rem;
         min-height: 110px;
       }
-
-      .link-item a .icon {
-        font-size: 2rem;
-        margin-bottom: 0.5rem;
-      }
-
-      footer {
-        padding: 1rem;
-      }
     }
 
-    /* 性能优化：减少重绘和重排 */
-    * {
-      will-change: auto;
-    }
-
-    .shape, .link-item, .avatar {
-      will-change: transform;
-    }
-
-    /* 为用户偏好减少动画 */
+    /* 用户偏好：减少动画 */
     @media (prefers-reduced-motion: reduce) {
-      .bg-shapes,
-      .shape1, .shape2, .shape3, .shape4, .shape5,
-      .shape6, .shape7, .shape8 {
-        animation: none;
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
       }
       
       body {
-        animation: none;
         background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
       }
-      
-      .title-container h1::before,
-      .title-container h1::after {
-        animation: none;
+    }
+
+    /* 高对比度支持 */
+    @media (prefers-contrast: high) {
+      .reminder {
+        border-left-width: 6px;
       }
+      
+      .badge {
+        border-width: 2px;
+      }
+    }
+
+    /* 性能优化：重置will-change属性 */
+    .link-item:not(:hover) {
+      will-change: auto;
+    }
+
+    .link-item a:not(:hover) {
+      will-change: auto;
     }
   </style>
 </head>
 <body>
-  <!-- 动态背景形状 -->
-  <div class="bg-shapes">
-    <div class="shape shape-circle shape1"></div>
-    <div class="shape shape-circle shape2"></div>
-    <div class="shape shape-circle shape3"></div>
-    <div class="shape shape-triangle shape-triangle1 shape4"></div>
-    <div class="shape shape-triangle shape-triangle2 shape5"></div>
-    <div class="shape6"></div>
-    <div class="shape7"></div>
-    <div class="shape8"></div>
-  </div>
+  <!-- 简化的背景装饰 -->
+  <div class="bg-decoration"></div>
 
   <header>
     <div class="header-content">
       <div class="avatar-container">
-        <img src="https://s2.loli.net/2025/09/25/VpgxqX8OKTdChM2.png" alt="Facebook头像" class="avatar">
+        <!-- 添加loading="lazy"以延迟加载 -->
+        <img src="https://s2.loli.net/2025/09/25/VpgxqX8OKTdChM2.png" 
+             alt="Facebook头像" 
+             class="avatar"
+             loading="lazy"
+             decoding="async">
       </div>
       <div class="title-container">
         <h1>脸书专营店</h1>
@@ -673,25 +490,25 @@
   <main>
     <div class="links">
       <div class="link-item">
-        <a href="https://fh10.zmfaka.cn/item/zge49o" target="_blank">
+        <a href="https://fh10.zmfaka.cn/item/zge49o" target="_blank" rel="noopener">
           <span class="icon">🛒</span>
           <span class="text">立即购买</span>
         </a>
       </div>
       <div class="link-item">
-        <a href="https://mbasic.facebook.com" target="_blank">
+        <a href="https://mbasic.facebook.com" target="_blank" rel="noopener">
           <span class="icon">🌐</span>
           <span class="text">脸书官网</span>
         </a>
       </div>
       <div class="link-item">
-        <a href="https://t.me/Facebookkf_bot" target="_blank">
+        <a href="https://t.me/Facebookkf_bot" target="_blank" rel="noopener">
           <span class="icon">💬</span>
           <span class="text">专属客服</span>
         </a>
       </div>
       <div class="link-item">
-        <a href="https://t.me/fb180" target="_blank">
+        <a href="https://t.me/fb180" target="_blank" rel="noopener">
           <span class="icon">👥</span>
           <span class="text">售后群组</span>
         </a>
@@ -704,63 +521,149 @@
   </footer>
 
   <script>
-    // 添加点击动画效果
-    document.querySelectorAll('.link-item a').forEach(link => {
-      link.addEventListener('click', function() {
-        this.style.transform = 'scale(0.95)';
-        setTimeout(() => {
-          this.style.transform = '';
-        }, 150);
-      });
+    // 性能优化的点击动画
+    function addClickEffect(element) {
+      element.style.transform = 'scale(0.95) translateZ(0)';
+      element.style.transition = 'transform 0.1s ease';
+      
+      // 使用setTimeout而不是addEventListener来减少内存占用
+      setTimeout(() => {
+        element.style.transform = '';
+        element.style.transition = 'all 0.2s ease';
+      }, 100);
+    }
+
+    // 使用事件委托来减少事件监听器数量
+    document.querySelector('.links').addEventListener('click', function(e) {
+      const link = e.target.closest('.link-item a');
+      if (link) {
+        addClickEffect(link);
+      }
     });
 
-    // 性能优化：在用户不活跃时暂停动画
-    let animationsPaused = false;
-    let inactivityTimer;
+    // 智能的性能管理
+    class PerformanceManager {
+      constructor() {
+        this.isLowPowerMode = false;
+        this.animationsPaused = false;
+        this.inactivityTimer = null;
+        this.init();
+      }
 
-    function pauseAnimations() {
-      if (!animationsPaused) {
-        document.body.style.animationPlayState = 'paused';
-        document.querySelectorAll('.shape, .shape6, .shape7, .shape8').forEach(el => {
-          el.style.animationPlayState = 'paused';
+      init() {
+        this.detectLowPowerMode();
+        this.setupVisibilityChange();
+        this.setupInactivityTimer();
+        
+        // 在低端设备上自动启用性能模式
+        if (this.isLowPowerMode) {
+          this.enablePerformanceMode();
+        }
+      }
+
+      detectLowPowerMode() {
+        // 检测设备性能指标
+        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        const memory = navigator.deviceMemory;
+        const cores = navigator.hardwareConcurrency;
+
+        this.isLowPowerMode = (
+          (memory && memory < 4) ||
+          (cores && cores < 4) ||
+          (connection && connection.effectiveType && 
+           ['slow-2g', '2g', '3g'].includes(connection.effectiveType))
+        );
+      }
+
+      enablePerformanceMode() {
+        // 禁用所有动画
+        const style = document.createElement('style');
+        style.textContent = `
+          *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+          }
+        `;
+        document.head.appendChild(style);
+        
+        // 移除背景装饰
+        const bgDecoration = document.querySelector('.bg-decoration');
+        if (bgDecoration) {
+          bgDecoration.style.display = 'none';
+        }
+      }
+
+      pauseAnimations() {
+        if (!this.animationsPaused) {
+          document.body.style.animationPlayState = 'paused';
+          this.animationsPaused = true;
+        }
+      }
+
+      resumeAnimations() {
+        if (this.animationsPaused && !this.isLowPowerMode) {
+          document.body.style.animationPlayState = 'running';
+          this.animationsPaused = false;
+        }
+      }
+
+      resetInactivityTimer() {
+        clearTimeout(this.inactivityTimer);
+        this.resumeAnimations();
+        
+        // 30秒不活动后暂停动画
+        this.inactivityTimer = setTimeout(() => {
+          this.pauseAnimations();
+        }, 30000);
+      }
+
+      setupVisibilityChange() {
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) {
+            this.pauseAnimations();
+          } else {
+            this.resumeAnimations();
+            this.resetInactivityTimer();
+          }
         });
-        animationsPaused = true;
       }
-    }
 
-    function resumeAnimations() {
-      if (animationsPaused) {
-        document.body.style.animationPlayState = 'running';
-        document.querySelectorAll('.shape, .shape6, .shape7, .shape8').forEach(el => {
-          el.style.animationPlayState = 'running';
+      setupInactivityTimer() {
+        // 节流的事件处理
+        let throttleTimer = null;
+        const handleActivity = () => {
+          if (!throttleTimer) {
+            throttleTimer = setTimeout(() => {
+              this.resetInactivityTimer();
+              throttleTimer = null;
+            }, 100); // 100ms节流
+          }
+        };
+
+        // 监听用户活动
+        ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(event => {
+          document.addEventListener(event, handleActivity, { passive: true });
         });
-        animationsPaused = false;
+
+        // 初始化
+        this.resetInactivityTimer();
       }
     }
 
-    function resetInactivityTimer() {
-      clearTimeout(inactivityTimer);
-      resumeAnimations();
-      inactivityTimer = setTimeout(pauseAnimations, 30000); // 30秒不活动后暂停动画
-    }
+    // 初始化性能管理器
+    const performanceManager = new PerformanceManager();
 
-    // 监听用户活动
-    ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(event => {
-      document.addEventListener(event, resetInactivityTimer, true);
-    });
+    // 预加载关键资源
+    const preloadLink = document.createElement('link');
+    preloadLink.rel = 'dns-prefetch';
+    preloadLink.href = '//fh10.zmfaka.cn';
+    document.head.appendChild(preloadLink);
 
-    // 页面可见性变化时控制动画
-    document.addEventListener('visibilitychange', function() {
-      if (document.hidden) {
-        pauseAnimations();
-      } else {
-        resumeAnimations();
-        resetInactivityTimer();
-      }
-    });
-
-    // 初始化
-    resetInactivityTimer();
+    const preloadLink2 = document.createElement('link');
+    preloadLink2.rel = 'dns-prefetch';
+    preloadLink2.href = '//t.me';
+    document.head.appendChild(preloadLink2);
   </script>
 </body>
 </html>
