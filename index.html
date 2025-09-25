@@ -22,10 +22,24 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
 
-    header h1 {
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem; /* 头像和文字间距 */
+    }
+
+    .header-content h1 {
       margin: 0;
       font-size: 1.8rem;
       color: #333;
+    }
+
+    .avatar {
+      width: 50px;   /* 头像大小 */
+      height: 50px;
+      border-radius: 50%; /* 圆形头像 */
+      object-fit: cover;
     }
 
     main {
@@ -76,7 +90,9 @@
 </head>
 <body>
   <header>
-    <h1>购买脸书白号</h1>
+    <div class="header-content">
+<img src="https://pic1.imgdb.cn/item/68d485b6c5157e1a882d46e0.jpg" alt="头像" class="avatar">      <h1>😁😁😁</h1>
+    </div>
   </header>
   
   <main>
