@@ -26,7 +26,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 1rem; /* 头像和文字间距 */
+      gap: 1rem;
     }
 
     .header-content h1 {
@@ -36,13 +36,12 @@
     }
 
     .avatar {
-      width: 50px;   /* 头像大小 */
+      width: 50px;
       height: 50px;
-      border-radius: 50%; /* 圆形头像 */
+      border-radius: 50%;
       object-fit: cover;
     }
 
-    /* 新增提醒区域样式 */
     .reminder {
       max-width: 800px;
       margin: 1rem auto;
@@ -62,11 +61,10 @@
       font-size: 1.2rem;
     }
 
-    /* 质保2天高亮样式 */
     .highlight {
       font-weight: bold;
-      color: #cf1322;         /* 红色文字 */
-      background: #fff1f0;    /* 浅红背景 */
+      color: #cf1322;
+      background: #fff1f0;
       padding: 0.2rem 0.4rem;
       border-radius: 4px;
     }
@@ -81,7 +79,7 @@
 
     .links {
       display: flex;
-      flex-direction: column; /* 每行一个 */
+      flex-direction: column;
       gap: 1rem;
       width: 100%;
       max-width: 400px;
@@ -89,24 +87,67 @@
 
     .link-item {
       text-align: center;
-      background: #fff;
-      padding: 1rem;
       border-radius: 8px;
-      transition: all 0.3s;
+      overflow: hidden;
       box-shadow: 0 1px 3px rgba(0,0,0,0.08);
     }
 
-    .link-item:hover {
-      background: #f0f4ff;
-      transform: translateY(-4px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+    /* 四个按钮不同颜色渐变/纯色 */
+    .link-item:nth-child(1) a {
+      background: linear-gradient(90deg, #ff7a5a, #ff4757);
+      color: #fff;
+      padding: 0.75rem 1rem;
+      text-decoration: none;
+      display: block;
+      transition: all 0.3s;
+    }
+    .link-item:nth-child(1):hover a {
+      background: linear-gradient(90deg, #ff6347, #ff2e2e);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
     }
 
-    .link-item a {
+    /* 脸书官网按钮 - 改成 Facebook 蓝色 */
+    .link-item:nth-child(2) a {
+      background: #1877F2;
+      color: #fff;
+      padding: 0.75rem 1rem;
       text-decoration: none;
-      color: #333;
-      font-size: 1rem;
       display: block;
+      transition: all 0.3s;
+    }
+    .link-item:nth-child(2):hover a {
+      background: #0d65d9;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    .link-item:nth-child(3) a {
+      background: linear-gradient(90deg, #00c851, #007e33);
+      color: #fff;
+      padding: 0.75rem 1rem;
+      text-decoration: none;
+      display: block;
+      transition: all 0.3s;
+    }
+    .link-item:nth-child(3):hover a {
+      background: linear-gradient(90deg, #00e676, #009933);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    .link-item:nth-child(4) a {
+      background: linear-gradient(90deg, #a29bfe, #6c5ce7);
+      color: #fff;
+      padding: 0.75rem 1rem;
+      text-decoration: none;
+      display: block;
+      transition: all 0.3s;
+    }
+    .link-item:nth-child(4):hover a {
+      background: linear-gradient(90deg, #7b68ee, #5d3fd3);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
     }
 
     footer {
@@ -125,7 +166,6 @@
     </div>
   </header>
 
-  <!-- 新增提醒区域 -->
   <section class="reminder">
     <h2>重要提醒</h2>
     <p>如果您要购买脸书白号,认准本店❤️</p>
@@ -137,7 +177,7 @@
   <main>
     <div class="links">
       <div class="link-item"><a href="https://fh10.zmfaka.cn/item/zge49o" target="_blank">👉购买链接👈</a></div>
-       <div class="link-item"><a href="https://mbasic.facebook.com" target="_blank">脸书官网</a></div>
+      <div class="link-item"><a href="https://mbasic.facebook.com" target="_blank">脸书官网</a></div>
       <div class="link-item"><a href="https://t.me/Facebookkf_bot" target="_blank">✈️专属客服</a></div>
       <div class="link-item"><a href="https://t.me/fb180" target="_blank">✈️售后群</a></div>
     </div>
@@ -148,7 +188,3 @@
   </footer>
 </body>
 </html>
-
-
-
-
