@@ -192,6 +192,7 @@
     /* 性能优化的简约按钮样式 */
     .link-item {
       transition: transform 0.2s ease;
+      will-change: transform;
     }
 
     .link-item:hover {
@@ -215,6 +216,8 @@
       border: 2px solid transparent;
       min-height: 140px;
       will-change: transform;
+      overflow: hidden;
+      isolation: isolate;
     }
 
     .link-item a:hover {
@@ -224,6 +227,28 @@
 
     .link-item a:active {
       transform: scale(0.98);
+    }
+
+    /* 高性能波纹效果 */
+    .link-item a::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s ease-out, height 0.6s ease-out;
+      pointer-events: none;
+      z-index: -1;
+      will-change: width, height;
+    }
+
+    .link-item a.ripple::before {
+      width: 300px;
+      height: 300px;
     }
 
     /* 简化的按钮配色 */
@@ -269,6 +294,7 @@
       margin-bottom: 0.8rem;
       display: block;
       transition: transform 0.2s ease;
+      will-change: transform;
     }
 
     .link-item a:hover .icon {
@@ -278,6 +304,8 @@
     .link-item a .text {
       font-weight: 600;
       letter-spacing: 0.5px;
+      position: relative;
+      z-index: 1;
     }
 
     footer {
@@ -308,15 +336,15 @@
 
       .title-container h1::before,
       .title-container h1::after {
-        font-size: 0.7em;
+        font-size: 0.9em;
       }
 
       .title-container h1::before {
-        left: -1em;
+        left: -1.5em;
       }
 
       .title-container h1::after {
-        right: -1em;
+        right: -1.5em;
       }
 
       .header-badges {
@@ -378,15 +406,15 @@
 
       .title-container h1::before,
       .title-container h1::after {
-        font-size: 0.6em;
+        font-size: 0.8em;
       }
 
       .title-container h1::before {
-        left: -0.8em;
+        left: -1.3em;
       }
 
       .title-container h1::after {
-        right: -0.8em;
+        right: -1.3em;
       }
 
       .reminder {
@@ -417,6 +445,16 @@
 
       footer {
         padding: 1rem;
+      }
+
+      .link-item a::before {
+        width: 200px;
+        height: 200px;
+      }
+
+      .link-item a.ripple::before {
+        width: 250px;
+        height: 250px;
       }
     }
   </style>
@@ -481,13 +519,46 @@
   </footer>
 
   <script>
-    // 轻量级的点击反馈效果
-    document.querySelectorAll('.link-item a').forEach(link => {
-      link.addEventListener('click', function() {
+    // 高性能波纹点击特效
+    const linkItems = document.querySelectorAll('.link-item a');
+    
+    linkItems.forEach(link => {
+      link.addEventListener('click', function(e) {
+        // 移除之前的波纹效果
+        this.classList.remove('ripple');
+        
+        // 使用requestAnimationFrame确保重新添加时能触发动画
+        requestAnimationFrame(() => {
+          this.classList.add('ripple');
+          
+          // 600ms后移除ripple类，准备下次点击
+          setTimeout(() => {
+            this.classList.remove('ripple');
+          }, 600);
+        });
+        
+        // 按钮按下效果
         this.style.transform = 'scale(0.95)';
         setTimeout(() => {
           this.style.transform = '';
         }, 100);
+      });
+      
+      // 触摸设备优化
+      link.addEventListener('touchstart', function() {
+        this.style.transform = 'scale(0.95)';
+      });
+      
+      link.addEventListener('touchend', function() {
+        this.style.transform = '';
+      });
+    });
+    
+    // 预加载优化，避免首次点击时的延迟
+    document.addEventListener('DOMContentLoaded', function() {
+      linkItems.forEach(link => {
+        // 强制浏览器计算样式，提升首次动画性能
+        link.offsetHeight;
       });
     });
   </script>
