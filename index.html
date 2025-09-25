@@ -20,7 +20,202 @@
       min-height: 100vh;
       color: #333;
       background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    /* 动态背景渐变动画 */
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* 浮动几何图形背景 */
+    .bg-shapes {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .shape {
+      position: absolute;
+      opacity: 0.1;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+
+    .shape-circle {
+      border-radius: 50%;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+    }
+
+    .shape-triangle {
+      width: 0;
+      height: 0;
+      background: transparent;
+    }
+
+    .shape-triangle::before {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-style: solid;
+    }
+
+    /* 不同大小和位置的形状 */
+    .shape1 {
+      width: 60px;
+      height: 60px;
+      left: 10%;
+      animation: float1 20s linear infinite;
+    }
+
+    .shape2 {
+      width: 40px;
+      height: 40px;
+      left: 20%;
+      animation: float2 25s linear infinite;
+    }
+
+    .shape3 {
+      width: 80px;
+      height: 80px;
+      left: 70%;
+      animation: float3 18s linear infinite;
+    }
+
+    .shape4 {
+      width: 50px;
+      height: 50px;
+      left: 80%;
+      animation: float4 22s linear infinite;
+    }
+
+    .shape5 {
+      width: 30px;
+      height: 30px;
+      left: 50%;
+      animation: float5 28s linear infinite;
+    }
+
+    .shape-triangle1::before {
+      border-left: 25px solid transparent;
+      border-right: 25px solid transparent;
+      border-bottom: 43px solid rgba(102, 126, 234, 0.1);
+      left: -25px;
+      top: 0;
+    }
+
+    .shape-triangle2::before {
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 35px solid rgba(118, 75, 162, 0.1);
+      left: -20px;
+      top: 0;
+    }
+
+    /* 浮动动画 */
+    @keyframes float1 {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+      }
+    }
+
+    @keyframes float2 {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+      }
+      100% {
+        transform: translateY(-100px) rotate(-360deg);
+      }
+    }
+
+    @keyframes float3 {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+      }
+      100% {
+        transform: translateY(-100px) rotate(180deg);
+      }
+    }
+
+    @keyframes float4 {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+      }
+      100% {
+        transform: translateY(-100px) rotate(-180deg);
+      }
+    }
+
+    @keyframes float5 {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+      }
+      100% {
+        transform: translateY(-100px) rotate(270deg);
+      }
+    }
+
+    /* 微妙的脉冲动画 */
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 0.05;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.15;
+        transform: scale(1.1);
+      }
+    }
+
+    .shape6, .shape7, .shape8 {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+      animation: pulse 8s ease-in-out infinite;
+    }
+
+    .shape6 {
+      width: 200px;
+      height: 200px;
+      top: 20%;
+      right: 10%;
+      animation-delay: 0s;
+    }
+
+    .shape7 {
+      width: 150px;
+      height: 150px;
+      bottom: 30%;
+      left: 5%;
+      animation-delay: 2.5s;
+    }
+
+    .shape8 {
+      width: 120px;
+      height: 120px;
+      top: 60%;
+      right: 30%;
+      animation-delay: 5s;
     }
 
     header {
@@ -145,6 +340,8 @@
       border-radius: 12px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
       border-left: 4px solid #667eea;
+      position: relative;
+      z-index: 5;
     }
 
     .reminder h2 {
@@ -179,6 +376,8 @@
       justify-content: center;
       align-items: center;
       padding: 0 1rem;
+      position: relative;
+      z-index: 5;
     }
 
     .links {
@@ -261,10 +460,21 @@
       background: rgba(255, 255, 255, 0.3);
       backdrop-filter: blur(5px);
       border-top: 1px solid rgba(255, 255, 255, 0.2);
+      position: relative;
+      z-index: 5;
     }
 
-    /* 响应式设计 */
+    /* 响应式设计 - 在移动设备上减少动画以提升性能 */
     @media (max-width: 768px) {
+      /* 在移动设备上简化动画 */
+      .bg-shapes {
+        display: none;
+      }
+      
+      body {
+        animation-duration: 25s; /* 减慢背景动画 */
+      }
+
       header {
         padding: 0.8rem 1rem 1.2rem;
       }
@@ -392,9 +602,49 @@
         padding: 1rem;
       }
     }
+
+    /* 性能优化：减少重绘和重排 */
+    * {
+      will-change: auto;
+    }
+
+    .shape, .link-item, .avatar {
+      will-change: transform;
+    }
+
+    /* 为用户偏好减少动画 */
+    @media (prefers-reduced-motion: reduce) {
+      .bg-shapes,
+      .shape1, .shape2, .shape3, .shape4, .shape5,
+      .shape6, .shape7, .shape8 {
+        animation: none;
+      }
+      
+      body {
+        animation: none;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      }
+      
+      .title-container h1::before,
+      .title-container h1::after {
+        animation: none;
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- 动态背景形状 -->
+  <div class="bg-shapes">
+    <div class="shape shape-circle shape1"></div>
+    <div class="shape shape-circle shape2"></div>
+    <div class="shape shape-circle shape3"></div>
+    <div class="shape shape-triangle shape-triangle1 shape4"></div>
+    <div class="shape shape-triangle shape-triangle2 shape5"></div>
+    <div class="shape6"></div>
+    <div class="shape7"></div>
+    <div class="shape8"></div>
+  </div>
+
   <header>
     <div class="header-content">
       <div class="avatar-container">
@@ -463,6 +713,54 @@
         }, 150);
       });
     });
+
+    // 性能优化：在用户不活跃时暂停动画
+    let animationsPaused = false;
+    let inactivityTimer;
+
+    function pauseAnimations() {
+      if (!animationsPaused) {
+        document.body.style.animationPlayState = 'paused';
+        document.querySelectorAll('.shape, .shape6, .shape7, .shape8').forEach(el => {
+          el.style.animationPlayState = 'paused';
+        });
+        animationsPaused = true;
+      }
+    }
+
+    function resumeAnimations() {
+      if (animationsPaused) {
+        document.body.style.animationPlayState = 'running';
+        document.querySelectorAll('.shape, .shape6, .shape7, .shape8').forEach(el => {
+          el.style.animationPlayState = 'running';
+        });
+        animationsPaused = false;
+      }
+    }
+
+    function resetInactivityTimer() {
+      clearTimeout(inactivityTimer);
+      resumeAnimations();
+      inactivityTimer = setTimeout(pauseAnimations, 30000); // 30秒不活动后暂停动画
+    }
+
+    // 监听用户活动
+    ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(event => {
+      document.addEventListener(event, resetInactivityTimer, true);
+    });
+
+    // 页面可见性变化时控制动画
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) {
+        pauseAnimations();
+      } else {
+        resumeAnimations();
+        resetInactivityTimer();
+      }
+    });
+
+    // 初始化
+    resetInactivityTimer();
   </script>
 </body>
 </html>
