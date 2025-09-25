@@ -63,6 +63,47 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      position: relative;
+      display: inline-block;
+    }
+
+    .title-container h1::before,
+    .title-container h1::after {
+      content: '★';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.8em;
+      animation: twinkle 2s ease-in-out infinite alternate;
+    }
+
+    .title-container h1::before {
+      left: -1.2em;
+      background: linear-gradient(45deg, #FFD700, #FFA500);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation-delay: 0s;
+    }
+
+    .title-container h1::after {
+      right: -1.2em;
+      background: linear-gradient(45deg, #FF69B4, #FF1493);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation-delay: 1s;
+    }
+
+    @keyframes twinkle {
+      0% {
+        opacity: 0.5;
+        transform: translateY(-50%) scale(0.8);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(-50%) scale(1.2);
+      }
     }
 
     .subtitle {
@@ -265,6 +306,19 @@
         height: 70px;
       }
 
+      .title-container h1::before,
+      .title-container h1::after {
+        font-size: 0.7em;
+      }
+
+      .title-container h1::before {
+        left: -1em;
+      }
+
+      .title-container h1::after {
+        right: -1em;
+      }
+
       .header-badges {
         gap: 0.5rem;
       }
@@ -322,6 +376,19 @@
         height: 60px;
       }
 
+      .title-container h1::before,
+      .title-container h1::after {
+        font-size: 0.6em;
+      }
+
+      .title-container h1::before {
+        left: -0.8em;
+      }
+
+      .title-container h1::after {
+        right: -0.8em;
+      }
+
       .reminder {
         padding: 1rem 0.8rem;
         margin: 0.8rem 0.8rem 1.2rem;
@@ -361,7 +428,7 @@
         <img src="https://s2.loli.net/2025/09/25/VpgxqX8OKTdChM2.png" alt="Facebook头像" class="avatar">
       </div>
       <div class="title-container">
-        <h1>✨脸书专营店✨</h1>
+        <h1>脸书专营店</h1>
         <div class="subtitle">🌟 专业 · 可靠 · 安全 🌟</div>
         <div class="header-badges">
           <span class="badge">🛡️ 品质保证</span>
