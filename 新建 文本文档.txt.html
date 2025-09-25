@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>个人导航</title>
+  <style>
+    body {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      background: #f9fafc;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      color: #333;
+    }
+
+    main {
+      flex: 1;
+      display: grid;
+      place-items: center;
+      padding: 2rem 1rem;
+    }
+
+    .links {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 1rem;
+      width: 100%;
+      max-width: 700px;
+    }
+
+    .link-item {
+      text-align: center;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      transition: all 0.3s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    .link-item:hover {
+      background: #f0f4ff;
+      transform: translateY(-4px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+    }
+
+    .link-item a {
+      text-decoration: none;
+      color: #333;
+      font-size: 1rem;
+      display: block;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.85rem;
+      padding: 1rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>我的个人导航</h1>
+  </header>
+  
+  <main>
+    <div class="links">
+      <div class="link-item"><a href="https://www.google.com" target="_blank">Google</a></div>
+      <div class="link-item"><a href="https://www.github.com" target="_blank">GitHub</a></div>
+      <div class="link-item"><a href="https://mail.qq.com" target="_blank">QQ邮箱</a></div>
+      <div class="link-item"><a href="https://weibo.com" target="_blank">微博</a></div>
+      <div class="link-item"><a href="https://www.bilibili.com" target="_blank">B站</a></div>
+      <div class="link-item"><a href="https://www.zhihu.com" target="_blank">知乎</a></div>
+    </div>
+  </main>
+  
+  <footer>
+    © 2025 我的导航页面
+  </footer>
+</body>
+</html>
