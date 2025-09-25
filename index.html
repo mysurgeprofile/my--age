@@ -30,17 +30,18 @@
 
     main {
       flex: 1;
-      display: grid;
-      place-items: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       padding: 2rem 1rem;
     }
 
     .links {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      display: flex;
+      flex-direction: column; /* 每行一个 */
       gap: 1rem;
       width: 100%;
-      max-width: 700px;
+      max-width: 400px;
     }
 
     .link-item {
@@ -94,4 +95,3 @@
   </footer>
 </body>
 </html>
-
