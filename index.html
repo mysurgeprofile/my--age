@@ -252,263 +252,66 @@
       }
     }
 
-    /* 增强版温馨提示模块 */
     .reminder {
       max-width: 1000px;
       margin: 2rem auto 3rem;
-      padding: 0;
-      background: transparent;
+      padding: 2.5rem 3rem;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
       position: relative;
       z-index: 10;
       animation: fadeInUp 0.8s ease-out 0.2s both;
     }
 
-    .reminder-container {
-      position: relative;
-      background: linear-gradient(145deg, 
-        rgba(255, 255, 255, 0.98) 0%, 
-        rgba(248, 250, 252, 0.95) 100%);
-      border-radius: 24px;
-      padding: 3rem 3.5rem;
-      box-shadow: 
-        0 25px 50px rgba(0, 0, 0, 0.08),
-        0 0 0 1px rgba(255, 255, 255, 0.5),
-        0 8px 32px rgba(102, 126, 234, 0.1);
-      backdrop-filter: blur(20px);
-      border: 2px solid transparent;
-      background-clip: padding-box;
-      overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .reminder-container:hover {
-      transform: translateY(-8px);
-      box-shadow: 
-        0 35px 70px rgba(0, 0, 0, 0.12),
-        0 0 0 1px rgba(255, 255, 255, 0.6),
-        0 15px 50px rgba(102, 126, 234, 0.15);
-    }
-
-    /* 多层渐变边框效果 */
-    .reminder-container::before {
-      content: '';
+    .reminder::before {
+      content: "";
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
-      height: 6px;
-      background: linear-gradient(90deg, 
-        #ff6b6b 0%, 
-        #4ecdc4 15%, 
-        #45b7d1 30%, 
-        #96ceb4 45%, 
-        #ffeaa7 60%, 
-        #fab1a0 75%, 
-        #fd79a8 90%, 
-        #e17055 100%);
-      background-size: 400% 100%;
-      border-radius: 24px 24px 0 0;
-      animation: rainbowFlow 8s ease-in-out infinite;
-    }
-
-    @keyframes rainbowFlow {
-      0%, 100% { background-position: 0% 50%; }
-      25% { background-position: 100% 50%; }
-      50% { background-position: 200% 50%; }
-      75% { background-position: 300% 50%; }
-    }
-
-    /* 装饰性背景图案 */
-    .reminder-container::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 200px;
-      height: 200px;
-      background: 
-        radial-gradient(circle at 30% 30%, rgba(255, 107, 107, 0.05) 0%, transparent 40%),
-        radial-gradient(circle at 70% 70%, rgba(79, 195, 247, 0.05) 0%, transparent 40%),
-        radial-gradient(circle at 50% 50%, rgba(102, 187, 106, 0.03) 0%, transparent 40%);
-      border-radius: 0 24px 0 0;
-      animation: breathe 4s ease-in-out infinite;
-      pointer-events: none;
-    }
-
-    @keyframes breathe {
-      0%, 100% { 
-        opacity: 0.6; 
-        transform: scale(1); 
-      }
-      50% { 
-        opacity: 0.8; 
-        transform: scale(1.05); 
-      }
+      height: 4px;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      border-radius: 16px 16px 0 0;
     }
 
     .reminder h2 {
-      margin: 0 0 2rem 0;
-      font-size: 2.2rem;
-      font-weight: 900;
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      color: #333;
+      font-size: 1.8rem;
+      font-weight: 800;
       text-align: center;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 30%, #f093fb 70%, #f5576c 100%);
-      background-size: 300% 300%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: gradientText 4s ease-in-out infinite;
-      position: relative;
-      text-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
-      letter-spacing: -0.5px;
     }
 
-    .reminder h2::before {
-      content: '✨';
-      position: absolute;
-      left: -3rem;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 2rem;
-      animation: sparkleRotate 3s ease-in-out infinite;
-    }
-
-    .reminder h2::after {
-      content: '✨';
-      position: absolute;
-      right: -3rem;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 2rem;
-      animation: sparkleRotate 3s ease-in-out infinite reverse;
-    }
-
-    @keyframes sparkleRotate {
-      0%, 100% { 
-        transform: translateY(-50%) rotate(0deg) scale(1); 
-        opacity: 1; 
-      }
-      25% { 
-        transform: translateY(-50%) rotate(90deg) scale(1.2); 
-        opacity: 0.8; 
-      }
-      50% { 
-        transform: translateY(-50%) rotate(180deg) scale(1); 
-        opacity: 1; 
-      }
-      75% { 
-        transform: translateY(-50%) rotate(270deg) scale(1.2); 
-        opacity: 0.8; 
-      }
-    }
-
-    .reminder-item {
-      display: flex;
-      align-items: flex-start;
+    .reminder p {
       margin-bottom: 1rem;
-      padding: 1.5rem;
-      background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.8) 0%, 
-        rgba(248, 250, 252, 0.6) 100%);
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 
-        0 8px 25px rgba(0, 0, 0, 0.04),
-        0 0 15px rgba(102, 126, 234, 0.05);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .reminder-item:hover {
-      transform: translateX(10px) scale(1.02);
-      background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.95) 0%, 
-        rgba(248, 250, 252, 0.8) 100%);
-      box-shadow: 
-        0 15px 35px rgba(0, 0, 0, 0.08),
-        0 0 25px rgba(102, 126, 234, 0.1);
-      border-color: rgba(102, 126, 234, 0.2);
-    }
-
-    .reminder-item::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 4px;
-      background: linear-gradient(180deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
-      border-radius: 0 4px 4px 0;
-      transform: scaleY(0);
-      transition: transform 0.4s ease;
-      transform-origin: bottom;
-    }
-
-    .reminder-item:hover::before {
-      transform: scaleY(1);
-      transform-origin: top;
-    }
-
-    .reminder-icon {
-      font-size: 2rem;
-      margin-right: 1.5rem;
-      margin-top: 0.2rem;
-      position: relative;
-      animation: iconBounce 2s ease-in-out infinite;
-      flex-shrink: 0;
-    }
-
-    @keyframes iconBounce {
-      0%, 100% { 
-        transform: translateY(0) rotate(0deg); 
-      }
-      25% { 
-        transform: translateY(-3px) rotate(2deg); 
-      }
-      50% { 
-        transform: translateY(0) rotate(0deg); 
-      }
-      75% { 
-        transform: translateY(-1px) rotate(-1deg); 
-      }
-    }
-
-    .reminder-text {
-      flex: 1;
       line-height: 1.8;
-      font-size: 1.15rem;
-      color: #444;
-      font-weight: 500;
+      font-size: 1.1rem;
+      color: #555;
     }
-
-    .reminder-item:nth-child(2) .reminder-icon { animation-delay: -0.5s; }
-    .reminder-item:nth-child(3) .reminder-icon { animation-delay: -1s; }
-    .reminder-item:nth-child(4) .reminder-icon { animation-delay: -1.5s; }
-    .reminder-item:nth-child(5) .reminder-icon { animation-delay: -2s; }
 
     .highlight {
       font-weight: bold;
       color: #fff;
       background: linear-gradient(45deg, #FFD700, #FFA500, #FF6347, #FFD700);
       background-size: 200% 200%;
-      padding: 0.4rem 1rem;
-      border-radius: 25px;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
       display: inline-block;
       position: relative;
       animation: starShine 2s ease-in-out infinite;
       box-shadow: 
-        0 6px 20px rgba(255, 215, 0, 0.4),
-        0 0 25px rgba(255, 215, 0, 0.3);
+        0 4px 15px rgba(255, 215, 0, 0.4),
+        0 0 20px rgba(255, 215, 0, 0.3);
       border: 2px solid #FFD700;
       transition: all 0.3s ease;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-      letter-spacing: 0.5px;
     }
 
     .highlight::before {
       content: '⭐';
       position: absolute;
-      left: -1.5rem;
+      left: -1.2rem;
       top: 50%;
       transform: translateY(-50%);
       font-size: 1.2rem;
@@ -518,7 +321,7 @@
     .highlight::after {
       content: '⭐';
       position: absolute;
-      right: -1.5rem;
+      right: -1.2rem;
       top: 50%;
       transform: translateY(-50%);
       font-size: 1.2rem;
@@ -528,8 +331,8 @@
     .highlight:hover {
       transform: scale(1.1);
       box-shadow: 
-        0 8px 25px rgba(255, 215, 0, 0.6),
-        0 0 35px rgba(255, 215, 0, 0.5);
+        0 6px 20px rgba(255, 215, 0, 0.6),
+        0 0 30px rgba(255, 215, 0, 0.5);
     }
 
     @keyframes starShine {
@@ -772,35 +575,7 @@
 
       .reminder {
         margin: 1.5rem 1rem 2rem;
-      }
-
-      .reminder-container {
-        padding: 2.5rem 2rem;
-      }
-
-      .reminder h2 {
-        font-size: 1.8rem;
-      }
-
-      .reminder h2::before,
-      .reminder h2::after {
-        font-size: 1.5rem;
-        left: -2rem;
-        right: -2rem;
-      }
-
-      .reminder-item {
-        padding: 1.2rem;
-        margin-bottom: 1.5rem;
-      }
-
-      .reminder-icon {
-        font-size: 1.8rem;
-        margin-right: 1.2rem;
-      }
-
-      .reminder-text {
-        font-size: 1rem;
+        padding: 2rem 1.5rem;
       }
 
       .links {
@@ -835,31 +610,16 @@
         height: 70px;
       }
 
-      .reminder-container {
-        padding: 2rem 1.5rem;
+      .reminder {
+        padding: 1.5rem 1rem;
       }
 
       .reminder h2 {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
       }
 
-      .reminder h2::before,
-      .reminder h2::after {
-        display: none;
-      }
-
-      .reminder-item {
-        padding: 1rem;
-        margin-bottom: 1.2rem;
-      }
-
-      .reminder-icon {
-        font-size: 1.6rem;
-        margin-right: 1rem;
-      }
-
-      .reminder-text {
-        font-size: 0.95rem;
+      .reminder p {
+        font-size: 1rem;
       }
 
       .link-item a {
@@ -893,29 +653,11 @@
   </header>
 
   <section class="reminder">
-    <div class="reminder-container">
-      <h2>🎯 温馨提示</h2>
-      
-      <div class="reminder-item">
-        <div class="reminder-icon">🔥</div>
-        <div class="reminder-text">如果您要购买脸书白号，认准本店，品质保证，服务至上！</div>
-      </div>
-      
-      <div class="reminder-item">
-        <div class="reminder-icon">🛡️</div>
-        <div class="reminder-text">脸书白号<span class="highlight">质保2天</span>，期间出现问题都可以找客服补货，售后无忧</div>
-      </div>
-      
-      <div class="reminder-item">
-        <div class="reminder-icon">🌍</div>
-        <div class="reminder-text">本店所有脸书账号请使用<span class="highlight">香港节点</span>登录，确保最佳使用体验</div>
-      </div>
-      
-      <div class="reminder-item">
-        <div class="reminder-icon">⚠️</div>
-        <div class="reminder-text">Facebook账号使用不当容易造成封禁，登录后请勿进行任何操作，安全第一</div>
-      </div>
-    </div>
+    <h2>🎯 温馨提示</h2>
+    <p>🔥 如果您要购买脸书白号，认准本店，品质保证，服务至上！</p>
+    <p>🛡️ 脸书白号<span class="highlight">质保2天</span>，期间出现问题都可以找客服补货，售后无忧</p>
+    <p>🌍 本店所有脸书账号请使用<span class="highlight">香港节点</span>登录，确保最佳使用体验</p>
+    <p>⚠️ Facebook账号使用不当容易造成封禁，登录后请勿进行任何操作，安全第一</p>
   </section>
   
   <main>
@@ -986,18 +728,6 @@
       link.addEventListener('mouseleave', function() {
         this.style.filter = 'brightness(1)';
       });
-    });
-
-    // 为提示项添加进入动画
-    document.querySelectorAll('.reminder-item').forEach((item, index) => {
-      item.style.opacity = '0';
-      item.style.transform = 'translateX(-50px)';
-      item.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-      
-      setTimeout(() => {
-        item.style.opacity = '1';
-        item.style.transform = 'translateX(0)';
-      }, 800 + index * 150);
     });
 
     const style = document.createElement('style');
