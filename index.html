@@ -170,23 +170,7 @@
       position: relative;
     }
 
-    .title-container h1::before {
-      content: '✨';
-      position: absolute;
-      left: -2rem;
-      top: 50%;
-      transform: translateY(-50%);
-      animation: sparkle 2s ease-in-out infinite;
-    }
-
-    .title-container h1::after {
-      content: '✨';
-      position: absolute;
-      right: -2rem;
-      top: 50%;
-      transform: translateY(-50%);
-      animation: sparkle 2s ease-in-out infinite 1s;
-    }
+    
 
     @keyframes sparkle {
       0%, 100% { 
@@ -310,10 +294,61 @@
     .highlight {
       font-weight: bold;
       color: #fff;
-      background: linear-gradient(45deg, #667eea, #764ba2);
-      padding: 0.3rem 0.6rem;
-      border-radius: 8px;
+      background: linear-gradient(45deg, #FFD700, #FFA500, #FF6347, #FFD700);
+      background-size: 200% 200%;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
       display: inline-block;
+      position: relative;
+      animation: starShine 2s ease-in-out infinite;
+      box-shadow: 
+        0 4px 15px rgba(255, 215, 0, 0.4),
+        0 0 20px rgba(255, 215, 0, 0.3);
+      border: 2px solid #FFD700;
+      transition: all 0.3s ease;
+    }
+
+    .highlight::before {
+      content: '⭐';
+      position: absolute;
+      left: -1.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      animation: starRotate 3s linear infinite;
+    }
+
+    .highlight::after {
+      content: '⭐';
+      position: absolute;
+      right: -1.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      animation: starRotate 3s linear infinite reverse;
+    }
+
+    .highlight:hover {
+      transform: scale(1.1);
+      box-shadow: 
+        0 6px 20px rgba(255, 215, 0, 0.6),
+        0 0 30px rgba(255, 215, 0, 0.5);
+    }
+
+    @keyframes starShine {
+      0%, 100% { 
+        background-position: 0% 50%;
+        filter: brightness(1);
+      }
+      50% { 
+        background-position: 100% 50%;
+        filter: brightness(1.2);
+      }
+    }
+
+    @keyframes starRotate {
+      0% { transform: translateY(-50%) rotate(0deg); }
+      100% { transform: translateY(-50%) rotate(360deg); }
     }
 
     main {
@@ -558,6 +593,11 @@
       .link-item a .icon {
         font-size: 2.2rem;
       }
+
+      .highlight::before,
+      .highlight::after {
+        display: none;
+      }
     }
 
     @media (max-width: 480px) {
@@ -601,7 +641,7 @@
         <img src="https://s2.loli.net/2025/09/25/VpgxqX8OKTdChM2.png" alt="Facebook头像" class="avatar">
       </div>
       <div class="title-container">
-        <h1>脸书专营店</h1>
+        <h1>✨脸书专营店✨</h1>
         <div class="subtitle">🌟 专业 · 可靠 · 安全 🌟</div>
         <div class="header-badges">
           <span class="badge">🛡️ 品质保证</span>
