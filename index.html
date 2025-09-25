@@ -62,7 +62,7 @@
 
     .reminder {
       max-width: 900px;
-      margin: 1.5rem auto;
+      margin: 1.5rem auto 2.5rem; /* 控制和按钮之间的距离（约40px） */
       padding: 1.8rem 2.2rem;
       background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,248,220,0.95));
       border-radius: 16px;
@@ -70,8 +70,7 @@
       box-shadow: 0 6px 16px rgba(0,0,0,0.15);
       animation: fadeIn 1s ease-in-out;
 
-      /* 防止被 header 遮挡 */
-      scroll-margin-top: 120px;
+      scroll-margin-top: 120px; /* 保证锚点定位不会被 header 遮挡 */
     }
 
     .reminder h2 {
@@ -95,10 +94,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 2rem 1rem;
-
-      /* 预留 header 高度，避免遮挡 */
-      padding-top: 120px;
+      padding: 0 1rem; /* 去掉顶部120px，按钮自然贴近提示 */
     }
 
     .links {
@@ -173,7 +169,6 @@
       box-shadow: 0 -3px 10px rgba(0,0,0,0.08);
     }
 
-    /* 动画 */
     @keyframes fadeIn {
       from {opacity: 0; transform: translateY(10px);}
       to {opacity: 1; transform: translateY(0);}
