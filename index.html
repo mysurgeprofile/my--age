@@ -19,7 +19,6 @@
       flex-direction: column;
       min-height: 100vh;
       color: #333;
-      /* 方案一：简约浅色渐变背景 */
       background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
       overflow-x: hidden;
     }
@@ -138,63 +137,166 @@
     .links {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
+      gap: 2rem;
       width: 100%;
       max-width: 800px;
       animation: fadeInUp 0.8s ease-out 0.4s both;
     }
 
     .link-item {
-      transition: transform 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      perspective: 1000px;
     }
 
     .link-item:hover {
-      transform: translateY(-8px);
+      transform: translateY(-12px);
     }
 
     .link-item a {
       display: block;
       text-align: center;
-      padding: 2rem 1.5rem;
+      padding: 2.5rem 2rem;
       font-size: 1.3rem;
-      font-weight: 700;
-      border-radius: 16px;
+      font-weight: 600;
+      border-radius: 20px;
       text-decoration: none;
       color: #fff;
-      transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      transform-style: preserve-3d;
+    }
+
+    /* 按钮内部光泽效果 */
+    .link-item a::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+      transform: rotate(45deg) translate(-100%, -100%);
+      transition: transform 0.6s ease;
+      z-index: 1;
+    }
+
+    .link-item a:hover::before {
+      transform: rotate(45deg) translate(100%, 100%);
+    }
+
+    /* 按钮发光边框效果 */
+    .link-item a::after {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      border-radius: 22px;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .link-item a:hover::after {
+      opacity: 1;
     }
 
     .link-item a:hover {
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
-      transform: scale(1.02);
+      transform: translateZ(20px) scale(1.05);
+      box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.15),
+        0 0 30px rgba(255, 255, 255, 0.2) inset;
+      border-color: rgba(255, 255, 255, 0.4);
     }
 
+    .link-item a:active {
+      transform: translateZ(10px) scale(0.98);
+      transition: all 0.1s ease;
+    }
+
+    /* 不同按钮的渐变背景 */
     .link-item:nth-child(1) a {
-      background: linear-gradient(135deg, #ff6b6b, #ee5a52);
-      box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
+      background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 50%, #ff4757 100%);
+      box-shadow: 
+        0 10px 30px rgba(255, 107, 107, 0.4),
+        0 0 20px rgba(255, 71, 87, 0.2) inset;
+    }
+
+    .link-item:nth-child(1) a:hover {
+      background: linear-gradient(135deg, #ff7675 0%, #fd79a8 50%, #ff6b9d 100%);
+      box-shadow: 
+        0 20px 40px rgba(255, 107, 107, 0.5),
+        0 0 30px rgba(255, 255, 255, 0.2) inset;
     }
 
     .link-item:nth-child(2) a {
-      background: linear-gradient(135deg, #4fc3f7, #29b6f6);
-      box-shadow: 0 6px 20px rgba(79, 195, 247, 0.3);
+      background: linear-gradient(135deg, #4fc3f7 0%, #29b6f6 50%, #0984e3 100%);
+      box-shadow: 
+        0 10px 30px rgba(79, 195, 247, 0.4),
+        0 0 20px rgba(9, 132, 227, 0.2) inset;
+    }
+
+    .link-item:nth-child(2) a:hover {
+      background: linear-gradient(135deg, #74b9ff 0%, #0984e3 50%, #6c5ce7 100%);
+      box-shadow: 
+        0 20px 40px rgba(79, 195, 247, 0.5),
+        0 0 30px rgba(255, 255, 255, 0.2) inset;
     }
 
     .link-item:nth-child(3) a {
-      background: linear-gradient(135deg, #66bb6a, #4caf50);
-      box-shadow: 0 6px 20px rgba(102, 187, 106, 0.3);
+      background: linear-gradient(135deg, #66bb6a 0%, #4caf50 50%, #00b894 100%);
+      box-shadow: 
+        0 10px 30px rgba(102, 187, 106, 0.4),
+        0 0 20px rgba(0, 184, 148, 0.2) inset;
+    }
+
+    .link-item:nth-child(3) a:hover {
+      background: linear-gradient(135deg, #00b894 0%, #00cec9 50%, #55a3ff 100%);
+      box-shadow: 
+        0 20px 40px rgba(102, 187, 106, 0.5),
+        0 0 30px rgba(255, 255, 255, 0.2) inset;
     }
 
     .link-item:nth-child(4) a {
-      background: linear-gradient(135deg, #ab47bc, #9c27b0);
-      box-shadow: 0 6px 20px rgba(171, 71, 188, 0.3);
+      background: linear-gradient(135deg, #ab47bc 0%, #9c27b0 50%, #8e24aa 100%);
+      box-shadow: 
+        0 10px 30px rgba(171, 71, 188, 0.4),
+        0 0 20px rgba(142, 36, 170, 0.2) inset;
+    }
+
+    .link-item:nth-child(4) a:hover {
+      background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 50%, #fd79a8 100%);
+      box-shadow: 
+        0 20px 40px rgba(171, 71, 188, 0.5),
+        0 0 30px rgba(255, 255, 255, 0.2) inset;
     }
 
     .link-item a .icon {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
+      font-size: 2.5rem;
+      margin-bottom: 0.8rem;
       display: block;
+      position: relative;
+      z-index: 2;
+      transition: all 0.3s ease;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .link-item a:hover .icon {
+      transform: translateY(-3px) scale(1.1);
+      text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    .link-item a .text {
+      position: relative;
+      z-index: 2;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
     }
 
     footer {
@@ -207,6 +309,27 @@
       border-top: 1px solid rgba(255, 255, 255, 0.2);
       position: relative;
       z-index: 10;
+    }
+
+    /* 按钮点击波纹效果 */
+    @keyframes ripple {
+      0% {
+        transform: scale(0);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.6);
+      transform: scale(0);
+      animation: ripple 0.6s linear;
+      pointer-events: none;
     }
 
     /* 响应式设计 */
@@ -223,13 +346,17 @@
 
       .links {
         grid-template-columns: 1fr;
-        gap: 1rem;
+        gap: 1.5rem;
         padding: 0 0.5rem;
       }
 
       .link-item a {
-        padding: 1.5rem 1rem;
-        font-size: 1.1rem;
+        padding: 2rem 1.5rem;
+        font-size: 1.2rem;
+      }
+
+      .link-item a .icon {
+        font-size: 2.2rem;
       }
     }
 
@@ -249,6 +376,15 @@
 
       .reminder p {
         font-size: 1rem;
+      }
+
+      .link-item a {
+        padding: 1.8rem 1.2rem;
+        font-size: 1.1rem;
+      }
+
+      .link-item a .icon {
+        font-size: 2rem;
       }
     }
   </style>
@@ -274,25 +410,25 @@
       <div class="link-item">
         <a href="https://fh10.zmfaka.cn/item/zge49o" target="_blank">
           <span class="icon">🛒</span>
-          立即购买
+          <span class="text">立即购买</span>
         </a>
       </div>
       <div class="link-item">
         <a href="https://mbasic.facebook.com" target="_blank">
           <span class="icon">🌐</span>
-          脸书官网
+          <span class="text">脸书官网</span>
         </a>
       </div>
       <div class="link-item">
         <a href="https://t.me/Facebookkf_bot" target="_blank">
           <span class="icon">💬</span>
-          专属客服
+          <span class="text">专属客服</span>
         </a>
       </div>
       <div class="link-item">
         <a href="https://t.me/fb180" target="_blank">
           <span class="icon">👥</span>
-          售后群组
+          <span class="text">售后群组</span>
         </a>
       </div>
     </div>
@@ -303,16 +439,48 @@
   </footer>
 
   <script>
-    // 添加简单的点击动画
+    // 增强的按钮交互效果
     document.querySelectorAll('.link-item a').forEach(link => {
-      link.addEventListener('click', function() {
-        this.style.transform = 'scale(0.95)';
+      // 点击波纹效果
+      link.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        ripple.classList.add('ripple');
+        
+        this.appendChild(ripple);
+        
+        // 点击缩放效果
+        this.style.transform = 'translateZ(10px) scale(0.95)';
         setTimeout(() => {
           this.style.transform = '';
-        }, 150);
+          ripple.remove();
+        }, 200);
+      });
+
+      // 增强悬停效果
+      link.addEventListener('mouseenter', function() {
+        this.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+      });
+
+      link.addEventListener('mouseleave', function() {
+        this.style.transition = 'all 0.3s ease-out';
+      });
+    });
+
+    // 页面加载动画优化
+    window.addEventListener('load', function() {
+      document.querySelectorAll('.link-item').forEach((item, index) => {
+        item.style.animationDelay = `${0.6 + index * 0.1}s`;
+        item.style.animation = 'fadeInUp 0.8s ease-out both';
       });
     });
   </script>
 </body>
 </html>
-
