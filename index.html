@@ -141,172 +141,13 @@
       position: relative;
     }
 
-    /* 标题装饰容器 */
-    .title-wrapper {
-      position: relative;
-      display: inline-block;
-      padding: 1rem 2rem;
-    }
-
-    /* 标题周围的装饰框架 */
-    .title-wrapper::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(45deg, transparent 30%, rgba(102, 126, 234, 0.1) 50%, transparent 70%);
-      border-radius: 20px;
-      border: 2px solid transparent;
-      background-clip: padding-box;
-      z-index: -1;
-    }
-
-    /* 装饰性边框 */
-    .title-wrapper::after {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(45deg, #FFD700, #667eea, #FF69B4, #667eea);
-      border-radius: 22px;
-      z-index: -2;
-      opacity: 0.6;
-      background-size: 300% 300%;
-      animation: borderShimmer 4s ease infinite;
-    }
-
-    @keyframes borderShimmer {
-      0%, 100% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-    }
-
     .title-container h1 {
       margin: 0 0 0.3rem 0;
       font-size: clamp(2rem, 6vw, 3rem);
       font-weight: 700;
-      background: linear-gradient(45deg, #667eea, #764ba2);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: #333;
       position: relative;
       display: inline-block;
-    }
-
-    /* 增强的星星装饰 */
-    .title-container h1::before,
-    .title-container h1::after {
-      content: '✨';
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.2em;
-      opacity: 0.8;
-      filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));
-    }
-
-    .title-container h1::before {
-      left: -2em;
-      color: #FFD700;
-      animation: sparkle 3s ease-in-out infinite;
-    }
-
-    .title-container h1::after {
-      right: -2em;
-      color: #FF69B4;
-      animation: sparkle 3s ease-in-out infinite 1.5s;
-    }
-
-    @keyframes sparkle {
-      0%, 100% {
-        opacity: 0.4;
-        transform: translateY(-50%) scale(0.8) rotate(0deg);
-      }
-      50% {
-        opacity: 1;
-        transform: translateY(-50%) scale(1.2) rotate(180deg);
-      }
-    }
-
-    /* 额外的装饰元素 */
-    .title-decorations {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    /* 装饰性小元素 */
-    .title-decorations::before,
-    .title-decorations::after {
-      content: '';
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: linear-gradient(45deg, #FFD700, #FFA500);
-      box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-    }
-
-    .title-decorations::before {
-      top: 20%;
-      left: 15%;
-      animation: float-dot 4s ease-in-out infinite;
-    }
-
-    .title-decorations::after {
-      bottom: 20%;
-      right: 15%;
-      background: linear-gradient(45deg, #FF69B4, #FF1493);
-      box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
-      animation: float-dot 4s ease-in-out infinite 2s;
-    }
-
-    @keyframes float-dot {
-      0%, 100% {
-        transform: translateY(0) scale(1);
-        opacity: 0.6;
-      }
-      50% {
-        transform: translateY(-10px) scale(1.5);
-        opacity: 1;
-      }
-    }
-
-    /* 皇冠装饰 - 仅在大屏幕显示 */
-    @media (min-width: 769px) {
-      .title-container::before {
-        content: '👑';
-        position: absolute;
-        top: -1rem;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 1.5rem;
-        animation: crown-glow 3s ease-in-out infinite;
-        z-index: 1;
-      }
-
-      @keyframes crown-glow {
-        0%, 100% {
-          filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
-          transform: translateX(-50%) scale(1);
-        }
-        50% {
-          filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
-          transform: translateX(-50%) scale(1.1);
-        }
-      }
     }
 
     .subtitle {
@@ -561,23 +402,6 @@
     /* 移动端优化 */
     @media (max-width: 768px) {
       /* 移动端关闭大部分装饰动画以提升性能 */
-      .title-wrapper::after {
-        animation: none;
-        background: linear-gradient(45deg, #667eea, #764ba2);
-        opacity: 0.3;
-      }
-
-      .title-container h1::before,
-      .title-container h1::after {
-        animation: none;
-        transform: translateY(-50%);
-      }
-
-      .title-decorations::before,
-      .title-decorations::after {
-        display: none;
-      }
-
       .subtitle::before,
       .subtitle::after {
         animation: none;
@@ -599,10 +423,6 @@
       .avatar {
         width: 70px;
         height: 70px;
-      }
-
-      .title-wrapper {
-        padding: 0.5rem 1rem;
       }
 
       .reminder {
@@ -691,10 +511,7 @@
              decoding="async">
       </div>
       <div class="title-container">
-        <div class="title-wrapper">
-          <div class="title-decorations"></div>
-          <h1>脸书专营店</h1>
-        </div>
+        <h1>脸书专营店</h1>
         <div class="subtitle">🌟 专业 · 可靠 · 安全 🌟</div>
         <div class="header-badges">
           <span class="badge">🛡️ 品质保证</span>
