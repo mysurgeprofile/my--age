@@ -104,7 +104,7 @@
     header {
       position: relative;
       text-align: center;
-      padding: 1rem 1rem 1.5rem;
+      padding: 1rem 1rem 0.8rem; /* 减少下边距 */
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -211,8 +211,8 @@
 
     .reminder {
       max-width: 1000px;
-      margin: 1.5rem auto 2rem;
-      padding: 1.5rem 2rem;
+      margin: 1rem auto 1rem; /* 减少上下边距 */
+      padding: 1.2rem 2rem; /* 减少内边距 */
       background: rgba(255, 255, 255, 0.95);
       border-radius: 12px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -225,7 +225,7 @@
 
     .reminder h2 {
       margin-top: 0;
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem; /* 减少下边距 */
       color: #333;
       font-size: 1.6rem;
       font-weight: 700;
@@ -233,7 +233,7 @@
     }
 
     .reminder p {
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.6rem; /* 减少段落间距 */
       line-height: 1.6;
       font-size: 1rem;
       color: #555;
@@ -347,7 +347,7 @@
     footer {
       text-align: center;
       font-size: 1rem;
-      padding: 1.5rem;
+      padding: 1rem; /* 减少内边距 */
       color: rgba(100, 116, 139, 0.8);
       background: rgba(255, 255, 255, 0.3);
       backdrop-filter: blur(5px);
@@ -369,7 +369,7 @@
       }
 
       header {
-        padding: 0.8rem 1rem 1.2rem;
+        padding: 0.8rem 1rem 0.6rem; /* 减少下边距 */
       }
 
       .header-content {
@@ -383,8 +383,16 @@
       }
 
       .reminder {
-        margin: 1rem 1rem 1.5rem;
-        padding: 1.2rem 1.2rem;
+        margin: 0.8rem 1rem 0.8rem; /* 减少上下边距 */
+        padding: 1rem 1.2rem; /* 减少内边距 */
+      }
+
+      .reminder h2 {
+        margin-bottom: 0.6rem; /* 减少标题下边距 */
+      }
+
+      .reminder p {
+        margin-bottom: 0.5rem; /* 减少段落间距 */
       }
 
       .links {
@@ -398,6 +406,10 @@
         font-size: 1.2rem;
         min-height: 120px;
       }
+
+      footer {
+        padding: 0.8rem; /* 减少移动端footer内边距 */
+      }
     }
 
     @media (max-width: 480px) {
@@ -407,8 +419,8 @@
       }
 
       .reminder {
-        padding: 1rem 0.8rem;
-        margin: 0.8rem 0.8rem 1.2rem;
+        padding: 0.8rem; /* 进一步减少小屏幕内边距 */
+        margin: 0.6rem 0.8rem 0.6rem; /* 减少小屏幕上下边距 */
       }
 
       .link-item a {
