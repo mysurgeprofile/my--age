@@ -250,8 +250,18 @@
 
         .comment {
             display: flex;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             font-size: 14px;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 0.3s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .comment-avatar {
@@ -260,6 +270,8 @@
             border-radius: 50%;
             margin-right: 10px;
             flex-shrink: 0;
+            background-size: cover;
+            background-position: center;
         }
 
         .comment-content {
@@ -289,49 +301,49 @@
             font-weight: 400;
         }
 
-        .show-more-comments {
-            color: #999;
+        .comments-toggle {
+            color: #1877f2;
             font-size: 14px;
+            font-weight: 500;
             cursor: pointer;
             text-align: center;
-            padding: 8px 0;
+            padding: 10px 0;
             border-radius: 6px;
-            background-color: #f8f8f8;
-            margin-top: 10px;
-            transition: background-color 0.2s ease;
+            background-color: #f8f9fa;
+            margin-top: 8px;
+            transition: all 0.2s ease;
+            user-select: none;
         }
 
-        .show-more-comments:hover {
-            background-color: #f0f0f0;
+        .comments-toggle:hover {
+            background-color: #e4e6ea;
+            color: #166fe5;
         }
 
-        .hidden-comments {
+        .comments-toggle:active {
+            transform: scale(0.98);
+        }
+
+        .comments-hidden {
             display: none;
         }
 
-        .hidden-comments.show {
+        .comments-visible {
             display: block;
         }
 
-        .collapse-comments {
-            color: #999;
-            font-size: 14px;
-            cursor: pointer;
-            text-align: center;
-            padding: 8px 0;
-            border-radius: 6px;
-            background-color: #f8f8f8;
-            margin-top: 10px;
-            transition: background-color 0.2s ease;
-            display: none;
+        .comment-skeleton {
+            height: 40px;
+            background: linear-gradient(90deg, #f0f0f0 25%, transparent 37%, #f0f0f0 63%);
+            background-size: 400% 100%;
+            animation: shimmer 1.5s ease-in-out infinite;
+            border-radius: 8px;
+            margin-bottom: 8px;
         }
 
-        .collapse-comments:hover {
-            background-color: #f0f0f0;
-        }
-
-        .collapse-comments.show {
-            display: block;
+        @keyframes shimmer {
+            0% { background-position: 100% 0; }
+            100% { background-position: -100% 0; }
         }
 
         /* 手机适配 */
@@ -542,7 +554,7 @@
                 
                 <div class="comments-section">
                     <div class="comment">
-                        <div class="comment-avatar" style="background: linear-gradient(45deg, #ff9ff3, #f368e0); background-size: cover;"></div>
+                        <div class="comment-avatar" style="background: linear-gradient(45deg, #ff9ff3, #f368e0);"></div>
                         <div class="comment-content">
                             <span class="comment-username">购物小达人</span>
                             <span class="comment-text">链接都能正常访问吗？</span>
@@ -551,7 +563,7 @@
                     </div>
                     
                     <div class="comment">
-                        <div class="comment-avatar" style="background: linear-gradient(45deg, #48dbfb, #0abde3); background-size: cover;"></div>
+                        <div class="comment-avatar" style="background: linear-gradient(45deg, #48dbfb, #0abde3);"></div>
                         <div class="comment-content">
                             <span class="comment-username">网络专家</span>
                             <span class="comment-text">Telegram群组很活跃，客服回复很快👍</span>
@@ -559,132 +571,11 @@
                         </div>
                     </div>
                     
-                    <div class="show-more-comments" onclick="toggleComments('comments1')">
+                    <div class="comments-toggle" data-comments="comments1" data-total="15">
                         查看全部15条评论
                     </div>
                     
-                    <div class="hidden-comments" id="comments1">
-                        <div class="comment">
-                            <div class="comment-avatar" style="background: linear-gradient(45deg, #ffeaa7, #fdcb6e); background-size: cover;"></div>
-                            <div class="comment-content">
-                                <span class="comment-username">科技爱好者</span>
-                                <span class="comment-text">官方店铺界面挺专业的，看起来很靠谱</span>
-                                <div class="comment-time">3小时前</div>
-                            </div>
-                        </div>
-                        
-                        <div class="comment">
-                            <div class="comment-avatar" style="background: linear-gradient(45deg, #ff6b6b, #ee5a24); background-size: cover;"></div>
-                            <div class="comment-content">
-                                <span class="comment-username">老用户</span>
-                                <span class="comment-text">已经收藏了所有链接，方便以后联系</span>
-                                <div class="comment-time">2小时前</div>
-                            </div>
-                        </div>
-                        
-                        <div class="comment">
-                            <div class="comment-avatar" style="background: linear-gradient(45deg, #ff6b6b, #feca57); background-size: cover;"></div>
-                            <div class="comment-content">
-                                <span class="comment-username">小明同学</span>
-                                <span class="comment-text">老板靠谱吗？价格怎么样？</span>
-                                <div class="comment-time">3小时前</div>
-                            </div>
-                        </div>
-                        
-                        <div class="comment">
-                            <div class="comment-avatar" style="background: linear-gradient(45deg, #74b9ff, #0984e3); background-size: cover;"></div>
-                            <div class="comment-content">
-                                <span class="comment-username">数码达人</span>
-                                <span class="comment-text">我买过好几次了，质量不错👍</span>
-                                <div class="comment-time">2小时前</div>
-                            </div>
-                        </div>
-                        
-                        <div class="comment">
-                            <div class="comment-avatar" style="background: linear-gradient(45deg, #a29bfe, #6c5ce7); background-size: cover;"></div>
-                            <div class="comment-content">
-                                <span class="comment-username">游戏玩家007</span>
-                                <span class="comment-text">香港节点稳定吗？会不会卡？</span>
-                                <div class="comment-time">2小时前</div>
-                            </div>
-                        </div>
-                        
-                        <div class="comment">
-                            <div class="comment-avatar" style="background: linear-gradient(45deg, #fd79a8, #e84393); background-size: cover;"></div>
-                            <div class="comment-content">
-                                <span class="comment-username">爱购物的小仙女</span>
-                                <span class="comment-text">质保2天太短了吧😅</span>
-                                <div class="comment-time">2小时前</div>
-                            </div>
-                        </div>
-                        
-                        <div class="comment">
-                            <div class="comment-avatar" style="background: linear-gradient(45deg, #fdcb6e, #e17055); background-size: cover;"></div>
-                            <div class="comment-content">
-                                <span class="comment-username">技术宅男</span>
-                                <span class="comment-text">Facebook现在管得越来越严了</span>
-                                <div class="comment-time">1小时前</div>
-                            </div>
-                        </div>
-                        
-                        <div class="comment">
-                            <div class="comment-avatar" style="background: linear-gradient(45deg, #55a3ff, #003d82); background-size: cover;"></div>
-                            <div class="comment-content">
-                                <span class="comment-username">网络冲浪者</span>
-                                <span class="comment-text">有没有其他平台的账号？</span>
-                                <div class="comment-time">1小时前</div>
-                            </div>
-                        </div>
-                        
-                        <div class="comment">
-                            <div class="comment-avatar" style="background: linear-gradient(45deg, #00b894, #00cec9); background-size: cover;"></div>
-                            <div class="comment-content">
-                                <span class="comment-username">省钱小能手</span>
-                                <span class="comment-text">有优惠券吗？批量购买有折扣不？</span>
-                                <div class="comment-time">1小时前</div>
-                            </div>
-                        </div>
-                        
-                        <div class="comment">
-                            <div class="comment-avatar" style="background: linear-gradient(45deg, #ff7675, #d63031); background-size: cover;"></div>
-                            <div class="comment-content">
-                                <span class="comment-username">老司机</span>
-                                <span class="comment-text">之前买的被封了，能补货吗？</span>
-                                <div class="comment-time">50分钟前</div>
-                            </div>
-                        </div>
-                        
-                        <div class="comment">
-                            <div class="comment-avatar" style="background: linear-gradient(45deg, #fab1a0, #e17055); background-size: cover;"></div>
-                            <div class="comment-content">
-                                <span class="comment-username">新手小白</span>
-                                <span class="comment-text">第一次买，有使用教程吗？</span>
-                                <div class="comment-time">40分钟前</div>
-                            </div>
-                        </div>
-                        
-                        <div class="comment">
-                            <div class="comment-avatar" style="background: linear-gradient(45deg, #81ecec, #00b894); background-size: cover;"></div>
-                            <div class="comment-content">
-                                <span class="comment-username">社交达人</span>
-                                <span class="comment-text">支持什么付款方式？</span>
-                                <div class="comment-time">30分钟前</div>
-                            </div>
-                        </div>
-                        
-                        <div class="comment">
-                            <div class="comment-avatar" style="background: linear-gradient(45deg, #a29bfe, #74b9ff); background-size: cover;"></div>
-                            <div class="comment-content">
-                                <span class="comment-username">程序猿小哥</span>
-                                <span class="comment-text">API接口稳定吗？有文档不？</span>
-                                <div class="comment-time">20分钟前</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="collapse-comments" id="collapse1" onclick="toggleComments('comments1')">
-                        收起评论
-                    </div>
+                    <div class="comments-hidden" id="comments1"></div>
                 </div>
             </div>
 
@@ -706,7 +597,7 @@
                 
                 <div class="comments-section">
                     <div class="comment">
-                        <div class="comment-avatar" style="background: linear-gradient(45deg, #ff6b6b, #feca57); background-size: cover;"></div>
+                        <div class="comment-avatar" style="background: linear-gradient(45deg, #ff6b6b, #feca57);"></div>
                         <div class="comment-content">
                             <span class="comment-username">甜心小可爱</span>
                             <span class="comment-text">我也超级喜欢你！💖</span>
@@ -715,7 +606,7 @@
                     </div>
                     
                     <div class="comment">
-                        <div class="comment-avatar" style="background: linear-gradient(45deg, #74b9ff, #0984e3); background-size: cover;"></div>
+                        <div class="comment-avatar" style="background: linear-gradient(45deg, #74b9ff, #0984e3);"></div>
                         <div class="comment-content">
                             <span class="comment-username">忠实粉丝</span>
                             <span class="comment-text">一直关注你，加油！🌟</span>
@@ -723,69 +614,11 @@
                         </div>
                     </div>
                     
-                    <div class="show-more-comments" onclick="toggleComments('comments3')">
+                    <div class="comments-toggle" data-comments="comments2" data-total="8">
                         查看全部8条评论
                     </div>
                     
-                    <div class="hidden-comments" id="comments3">
-                        <div class="comment">
-                            <div class="comment-avatar" style="background: linear-gradient(45deg, #a29bfe, #6c5ce7); background-size: cover;"></div>
-                            <div class="comment-content">
-                                <span class="comment-username">暖心网友</span>
-                                <span class="comment-text">你的服务态度真的很棒！</span>
-                                <div class="comment-time">40分钟前</div>
-                            </div>
-                        </div>
-                        
-                        <div class="comment">
-                            <div class="comment-avatar" style="background: linear-gradient(45deg, #fd79a8, #e84393); background-size: cover;"></div>
-                            <div class="comment-content">
-                                <span class="comment-username">开心果</span>
-                                <span class="comment-text">每天都来看看，心情都变好了😊</span>
-                                <div class="comment-time">35分钟前</div>
-                            </div>
-                        </div>
-                        
-                        <div class="comment">
-                            <div class="comment-avatar" style="background: linear-gradient(45deg, #fdcb6e, #e17055); background-size: cover;"></div>
-                            <div class="comment-content">
-                                <span class="comment-username">阳光少年</span>
-                                <span class="comment-text">正能量满满！</span>
-                                <div class="comment-time">30分钟前</div>
-                            </div>
-                        </div>
-                        
-                        <div class="comment">
-                            <div class="comment-avatar" style="background: linear-gradient(45deg, #55a3ff, #003d82); background-size: cover;"></div>
-                            <div class="comment-content">
-                                <span class="comment-username">温柔的风</span>
-                                <span class="comment-text">喜欢你的真诚和用心❤️</span>
-                                <div class="comment-time">25分钟前</div>
-                            </div>
-                        </div>
-                        
-                        <div class="comment">
-                            <div class="comment-avatar" style="background: linear-gradient(45deg, #00b894, #00cec9); background-size: cover;"></div>
-                            <div class="comment-content">
-                                <span class="comment-username">快乐小鸟</span>
-                                <span class="comment-text">希望你每天都开开心心的！</span>
-                                <div class="comment-time">20分钟前</div>
-                            </div>
-                        </div>
-                        
-                        <div class="comment">
-                            <div class="comment-avatar" style="background: linear-gradient(45deg, #ff7675, #d63031); background-size: cover;"></div>
-                            <div class="comment-content">
-                                <span class="comment-username">星空梦想</span>
-                                <span class="comment-text">你值得所有的美好！✨</span>
-                                <div class="comment-time">15分钟前</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="collapse-comments" id="collapse3" onclick="toggleComments('comments3')">
-                        收起评论
-                    </div>
+                    <div class="comments-hidden" id="comments2"></div>
                 </div>
             </div>
         </div>
@@ -800,22 +633,186 @@
     </div>
 
     <script>
-        function toggleComments(commentsId) {
-            const hiddenComments = document.getElementById(commentsId);
-            const showMoreBtn = hiddenComments.previousElementSibling;
-            const collapseBtn = hiddenComments.nextElementSibling;
-            
-            if (hiddenComments.classList.contains('show')) {
-                hiddenComments.classList.remove('show');
-                showMoreBtn.style.display = 'block';
-                collapseBtn.classList.remove('show');
-            } else {
-                hiddenComments.classList.add('show');
-                showMoreBtn.style.display = 'none';
-                collapseBtn.classList.add('show');
+        // 评论数据池
+        const commentsData = {
+            comments1: [
+                { name: '科技爱好者', text: '官方店铺界面挺专业的，看起来很靠谱', time: '3小时前', gradient: 'linear-gradient(45deg, #ffeaa7, #fdcb6e)' },
+                { name: '老用户', text: '已经收藏了所有链接，方便以后联系', time: '2小时前', gradient: 'linear-gradient(45deg, #ff6b6b, #ee5a24)' },
+                { name: '小明同学', text: '老板靠谱吗？价格怎么样？', time: '3小时前', gradient: 'linear-gradient(45deg, #ff6b6b, #feca57)' },
+                { name: '数码达人', text: '我买过好几次了，质量不错👍', time: '2小时前', gradient: 'linear-gradient(45deg, #74b9ff, #0984e3)' },
+                { name: '游戏玩家007', text: '香港节点稳定吗？会不会卡？', time: '2小时前', gradient: 'linear-gradient(45deg, #a29bfe, #6c5ce7)' },
+                { name: '爱购物的小仙女', text: '质保2天太短了吧😅', time: '2小时前', gradient: 'linear-gradient(45deg, #fd79a8, #e84393)' },
+                { name: '技术宅男', text: 'Facebook现在管得越来越严了', time: '1小时前', gradient: 'linear-gradient(45deg, #fdcb6e, #e17055)' },
+                { name: '网络冲浪者', text: '有没有其他平台的账号？', time: '1小时前', gradient: 'linear-gradient(45deg, #55a3ff, #003d82)' },
+                { name: '省钱小能手', text: '有优惠券吗？批量购买有折扣不？', time: '1小时前', gradient: 'linear-gradient(45deg, #00b894, #00cec9)' },
+                { name: '老司机', text: '之前买的被封了，能补货吗？', time: '50分钟前', gradient: 'linear-gradient(45deg, #ff7675, #d63031)' },
+                { name: '新手小白', text: '第一次买，有使用教程吗？', time: '40分钟前', gradient: 'linear-gradient(45deg, #fab1a0, #e17055)' },
+                { name: '社交达人', text: '支持什么付款方式？', time: '30分钟前', gradient: 'linear-gradient(45deg, #81ecec, #00b894)' },
+                { name: '程序猿小哥', text: 'API接口稳定吗？有文档不？', time: '20分钟前', gradient: 'linear-gradient(45deg, #a29bfe, #74b9ff)' }
+            ],
+            comments2: [
+                { name: '暖心网友', text: '你的服务态度真的很棒！', time: '40分钟前', gradient: 'linear-gradient(45deg, #a29bfe, #6c5ce7)' },
+                { name: '开心果', text: '每天都来看看，心情都变好了😊', time: '35分钟前', gradient: 'linear-gradient(45deg, #fd79a8, #e84393)' },
+                { name: '阳光少年', text: '正能量满满！', time: '30分钟前', gradient: 'linear-gradient(45deg, #fdcb6e, #e17055)' },
+                { name: '温柔的风', text: '喜欢你的真诚和用心❤️', time: '25分钟前', gradient: 'linear-gradient(45deg, #55a3ff, #003d82)' },
+                { name: '快乐小鸟', text: '希望你每天都开开心心的！', time: '20分钟前', gradient: 'linear-gradient(45deg, #00b894, #00cec9)' },
+                { name: '星空梦想', text: '你值得所有的美好！✨', time: '15分钟前', gradient: 'linear-gradient(45deg, #ff7675, #d63031)' }
+            ]
+        };
+
+        // 高性能评论管理类
+        class CommentsManager {
+            constructor() {
+                this.loadedComments = new Set();
+                this.commentElements = new Map();
+                this.observers = new Map();
+            }
+
+            // 创建评论元素
+            createCommentElement(comment, index) {
+                const commentDiv = document.createElement('div');
+                commentDiv.className = 'comment';
+                commentDiv.style.animationDelay = `${index * 0.05}s`;
+                
+                commentDiv.innerHTML = `
+                    <div class="comment-avatar" style="background: ${comment.gradient};"></div>
+                    <div class="comment-content">
+                        <span class="comment-username">${comment.name}</span>
+                        <span class="comment-text">${comment.text}</span>
+                        <div class="comment-time">${comment.time}</div>
+                    </div>
+                `;
+                
+                return commentDiv;
+            }
+
+            // 批量渲染评论（分批处理）
+            async renderComments(commentsId, comments) {
+                const container = document.getElementById(commentsId);
+                const fragment = document.createDocumentFragment();
+                const batchSize = 3; // 每批处理3个评论
+                
+                for (let i = 0; i < comments.length; i += batchSize) {
+                    const batch = comments.slice(i, i + batchSize);
+                    
+                    batch.forEach((comment, index) => {
+                        const commentElement = this.createCommentElement(comment, i + index);
+                        fragment.appendChild(commentElement);
+                    });
+                    
+                    // 分批插入DOM，避免阻塞
+                    if (i === 0 || i % (batchSize * 2) === 0) {
+                        container.appendChild(fragment.cloneNode(true));
+                        // 清空fragment为下一批做准备
+                        while (fragment.firstChild) {
+                            fragment.removeChild(fragment.firstChild);
+                        }
+                        await new Promise(resolve => requestAnimationFrame(resolve));
+                    }
+                }
+                
+                // 插入剩余的评论
+                if (fragment.children.length > 0) {
+                    container.appendChild(fragment);
+                }
+            }
+
+            // 切换评论显示状态
+            async toggleComments(button) {
+                const commentsId = button.dataset.comments;
+                const totalCount = button.dataset.total;
+                const container = document.getElementById(commentsId);
+                
+                if (container.classList.contains('comments-visible')) {
+                    // 收起评论
+                    container.classList.remove('comments-visible');
+                    container.classList.add('comments-hidden');
+                    button.textContent = `查看全部${totalCount}条评论`;
+                    
+                    // 清空内容节省内存
+                    setTimeout(() => {
+                        if (container.classList.contains('comments-hidden')) {
+                            container.innerHTML = '';
+                        }
+                    }, 300);
+                } else {
+                    // 展开评论
+                    button.textContent = '加载中...';
+                    button.style.pointerEvents = 'none';
+                    
+                    // 显示骨架屏
+                    this.showSkeleton(container, 3);
+                    container.classList.remove('comments-hidden');
+                    container.classList.add('comments-visible');
+                    
+                    // 模拟网络延迟
+                    await new Promise(resolve => setTimeout(resolve, 300));
+                    
+                    // 清除骨架屏
+                    container.innerHTML = '';
+                    
+                    // 渲染评论
+                    if (commentsData[commentsId]) {
+                        await this.renderComments(commentsId, commentsData[commentsId]);
+                    }
+                    
+                    button.textContent = '收起评论';
+                    button.style.pointerEvents = 'auto';
+                }
+            }
+
+            // 显示加载骨架屏
+            showSkeleton(container, count) {
+                container.innerHTML = '';
+                for (let i = 0; i < count; i++) {
+                    const skeleton = document.createElement('div');
+                    skeleton.className = 'comment-skeleton';
+                    container.appendChild(skeleton);
+                }
             }
         }
+
+        // 初始化评论管理器
+        const commentsManager = new CommentsManager();
+
+        // 事件委托处理评论切换
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('comments-toggle')) {
+                e.preventDefault();
+                commentsManager.toggleComments(e.target);
+            }
+        });
+
+        // 性能优化：使用 Intersection Observer 预加载即将进入视口的评论
+        const observerOptions = {
+            root: null,
+            rootMargin: '100px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const button = entry.target.querySelector('.comments-toggle');
+                    if (button && !button.dataset.preloaded) {
+                        // 预加载评论数据（可以在这里预处理数据）
+                        button.dataset.preloaded = 'true';
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // 观察所有评论区域
+        document.querySelectorAll('.comments-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // 内存清理：页面卸载时清理资源
+        window.addEventListener('beforeunload', () => {
+            observer.disconnect();
+            commentsManager.observers.clear();
+            commentsManager.commentElements.clear();
+        });
     </script>
 </body>
 </html>
-
