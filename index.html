@@ -1,677 +1,599 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>脸书专营店</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: "Helvetica Neue", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      color: #333;
-      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-      overflow-x: hidden;
-      position: relative;
-      /* 性能优化：启用GPU加速 */
-      transform: translateZ(0);
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
-    }
-
-    /* 优化后的背景动画 - 仅在大屏幕设备上启用 */
-    @media (min-width: 769px) and (prefers-reduced-motion: no-preference) {
-      body {
-        background-size: 400% 400%;
-        animation: gradientShift 20s ease infinite;
-      }
-      
-      @keyframes gradientShift {
-        0%, 100% {
-          background-position: 0% 50%;
+    <meta name="x-poe-datastore-behavior" content="local_only">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com https://s2.loli.net; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitagawa marin - 个人主页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        50% {
-          background-position: 100% 50%;
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
         }
-      }
-    }
 
-    /* 简化的背景装饰 - 减少DOM元素 */
-    .bg-decoration {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.08;
-      /* 性能优化 */
-      contain: layout style paint;
-      will-change: transform;
-    }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            min-height: 100vh;
+        }
 
-    .bg-decoration::before,
-    .bg-decoration::after {
-      content: '';
-      position: absolute;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(102, 126, 234, 0.3) 0%, transparent 70%);
-    }
+        .header-banner {
+            width: 100%;
+            height: 200px;
+            background-image: url('https://s2.loli.net/2025/09/26/zEXh9iTKZyS4M31.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
 
-    .bg-decoration::before {
-      width: 300px;
-      height: 300px;
-      top: 10%;
-      right: 5%;
-      animation: float-slow 25s ease-in-out infinite;
-    }
+        .profile-section {
+            padding: 20px;
+            text-align: center;
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
+        }
 
-    .bg-decoration::after {
-      width: 200px;
-      height: 200px;
-      bottom: 15%;
-      left: 10%;
-      animation: float-slow 30s ease-in-out infinite reverse;
-    }
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid white;
+            background-image: url('https://s2.loli.net/2025/09/25/VpgxqX8OKTdChM2.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0 auto 15px;
+            position: relative;
+            overflow: hidden;
+        }
 
-    /* 简化的浮动动画 */
-    @keyframes float-slow {
-      0%, 100% {
-        transform: translate3d(0, 0, 0) scale(1);
-      }
-      50% {
-        transform: translate3d(20px, -30px, 0) scale(1.1);
-      }
-    }
+        .username {
+            font-size: 24px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 10px;
+        }
 
-    /* 仅在大屏幕上显示背景装饰 */
-    @media (max-width: 768px) {
-      .bg-decoration {
-        display: none;
-      }
-    }
+        .bio {
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
 
-    header {
-      position: relative;
-      text-align: center;
-      padding: 0.8rem 1rem 0.5rem; /* 进一步减少下边距 */
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      z-index: 10;
-      /* 性能优化 */
-      contain: layout style paint;
-    }
+        .posts-section {
+            padding: 0 20px;
+        }
 
-    .header-content {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
+        .post {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #eee;
+        }
 
-    .avatar {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid #667eea;
-      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
-      transition: transform 0.2s ease;
-      /* 性能优化 */
-      will-change: transform;
-    }
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
 
-    .avatar:hover {
-      transform: scale(1.05) translateZ(0);
-    }
+        .post-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-image: url('https://s2.loli.net/2025/09/25/VpgxqX8OKTdChM2.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin-right: 10px;
+            position: relative;
+        }
 
-    .title-container {
-      position: relative;
-    }
+        .post-info {
+            flex: 1;
+        }
 
-    .title-container h1 {
-      margin: 0 0 0.2rem 0; /* 减少标题下边距 */
-      font-size: clamp(2rem, 6vw, 3rem);
-      font-weight: 700;
-      color: #333;
-      position: relative;
-      display: inline-block;
-    }
+        .post-username {
+            font-weight: 600;
+            color: #666;
+            font-size: 16px;
+        }
 
-    .subtitle {
-      font-size: 1rem;
-      color: #666;
-      font-weight: 500;
-      margin-top: 0.2rem; /* 减少子标题上边距 */
-      position: relative;
-    }
+        .post-time {
+            color: #999;
+            font-size: 12px;
+            margin-top: 2px;
+        }
 
-    .header-badges {
-      display: flex;
-      gap: 0.8rem;
-      justify-content: center;
-      margin-top: 0.6rem; /* 减少徽章上边距 */
-      flex-wrap: wrap;
-    }
+        .post-content {
+            line-height: 1.6;
+            color: #333;
+            font-size: 15px;
+        }
 
-    .badge {
-      padding: 0.3rem 0.8rem;
-      background: rgba(102, 126, 234, 0.1);
-      border: 1px solid rgba(102, 126, 234, 0.2);
-      border-radius: 15px;
-      font-size: 0.8rem;
-      color: #667eea;
-      font-weight: 600;
-      transition: all 0.2s ease;
-      /* 性能优化 */
-      will-change: transform;
-    }
+        .post-content a {
+            color: #1E90FF;
+            text-decoration: underline;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
 
-    .badge:hover {
-      background: rgba(102, 126, 234, 0.2);
-      transform: translateY(-1px) translateZ(0);
-    }
+        .post-content a:hover {
+            color: #FF4500;
+            text-decoration: underline;
+            background-color: rgba(30, 144, 255, 0.1);
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
 
-    .reminder {
-      max-width: 1000px;
-      margin: 0.8rem auto 0.8rem; /* 进一步减少上下边距 */
-      padding: 0.8rem 2rem; /* 进一步减少内边距 */
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      border-left: 4px solid #667eea;
-      position: relative;
-      z-index: 5;
-      /* 性能优化 */
-      contain: layout style paint;
-    }
+        .link-line {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            background-color: #f8f9ff;
+            border: 1px solid #e6f0ff;
+            transition: all 0.2s ease;
+        }
 
-    .reminder h2 {
-      margin-top: 0;
-      margin-bottom: 0.5rem; /* 进一步减少标题下边距 */
-      color: #333;
-      font-size: 1.6rem;
-      font-weight: 700;
-      text-align: center;
-    }
+        .link-line:hover {
+            background-color: rgba(255, 69, 0, 0.05);
+            border-color: #ffcab0;
+            transform: translateY(-1px);
+        }
 
-    .reminder p {
-      margin-bottom: 0.4rem; /* 进一步减少段落间距 */
-      line-height: 1.5; /* 减少行高 */
-      font-size: 1rem;
-      color: #555;
-    }
+        .link-line:last-child {
+            margin-bottom: 0;
+        }
 
-    .reminder p:last-child {
-      margin-bottom: 0; /* 最后一个段落无下边距 */
-    }
+        .link-label {
+            color: #333;
+            font-weight: 500;
+            margin-right: 8px;
+            flex-shrink: 0;
+        }
 
-    /* 简化的高亮文字样式 - 去掉复杂动画和装饰 */
-    .highlight {
-      background: #FFD700;
-      color: #333;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      font-weight: 700;
-      display: inline-block;
-    }
+        .link-url {
+            color: #1E90FF;
+            text-decoration: underline;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
 
-    /* 移动端高亮优化 */
-    @media (max-width: 768px) {
-      .highlight {
-        animation: none;
-        transform: none;
-      }
-    }
+        .link-url:hover {
+            color: #FF4500;
+        }
 
-    main {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 0 1rem;
-      position: relative;
-      z-index: 5;
-    }
+        .highlight {
+            background-color: #ffeb3b;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
 
-    .links {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      width: 100%;
-      max-width: 900px;
-    }
+        .footer {
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            margin-top: 20px;
+        }
 
-    .link-item {
-      /* 性能优化：只在需要时触发GPU加速 */
-      transition: transform 0.2s ease;
-      will-change: auto;
-    }
+        .visitors {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 14px;
+        }
 
-    .link-item:hover {
-      transform: translateY(-6px) translateZ(0);
-      will-change: transform;
-    }
+        .heart-icon {
+            margin-right: 8px;
+            color: #ff69b4;
+        }
 
-    .link-item a {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 2rem 1.5rem;
-      font-size: 1.3rem;
-      font-weight: 700;
-      border-radius: 16px;
-      text-decoration: none;
-      color: #fff;
-      transition: all 0.2s ease;
-      position: relative;
-      overflow: hidden;
-      min-height: 140px;
-      /* 性能优化 */
-      will-change: auto;
-    }
+        .more-btn {
+            float: right;
+            color: #999;
+            font-size: 18px;
+            cursor: pointer;
+        }
 
-    .link-item a:hover {
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-      transform: scale(1.02) translateZ(0);
-      will-change: transform;
-    }
+        .comments-section {
+            border-top: 1px solid #eee;
+            margin-top: 15px;
+            padding-top: 15px;
+        }
 
-    /* 按钮渐变色 */
-    .link-item:nth-child(1) a {
-      background: linear-gradient(135deg, #ff6b6b, #ee5a52);
-      box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
-    }
+        .comment {
+            display: flex;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
 
-    .link-item:nth-child(2) a {
-      background: linear-gradient(135deg, #4fc3f7, #29b6f6);
-      box-shadow: 0 6px 20px rgba(79, 195, 247, 0.3);
-    }
+        .comment-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
 
-    .link-item:nth-child(3) a {
-      background: linear-gradient(135deg, #66bb6a, #4caf50);
-      box-shadow: 0 6px 20px rgba(102, 187, 106, 0.3);
-    }
+        .comment-content {
+            flex: 1;
+            line-height: 1.4;
+        }
 
-    .link-item:nth-child(4) a {
-      background: linear-gradient(135deg, #ab47bc, #9c27b0);
-      box-shadow: 0 6px 20px rgba(171, 71, 188, 0.3);
-    }
+        .comment-username {
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-right: 8px;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            letter-spacing: 0.3px;
+        }
 
-    .link-item a .icon {
-      font-size: 2.5rem;
-      margin-bottom: 0.8rem;
-      display: block;
-    }
+        .comment-text {
+            color: #4a4a4a;
+            font-weight: 400;
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+            line-height: 1.5;
+        }
 
-    .link-item a .text {
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
+        .comment-time {
+            color: #999;
+            font-size: 12px;
+            margin-top: 2px;
+            font-weight: 400;
+        }
 
-    footer {
-      text-align: center;
-      font-size: 1rem;
-      padding: 2rem 1rem; /* 增加上下内边距 */
-      color: rgba(100, 116, 139, 0.8);
-      background: rgba(255, 255, 255, 0.3);
-      backdrop-filter: blur(5px);
-      border-top: 1px solid rgba(255, 255, 255, 0.2);
-      position: relative;
-      z-index: 5;
-    }
+        .show-more-comments {
+            color: #999;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            padding: 8px 0;
+            border-radius: 6px;
+            background-color: #f8f8f8;
+            margin-top: 10px;
+            transition: background-color 0.2s ease;
+        }
 
-    /* 移动端优化 */
-    @media (max-width: 768px) {
-      body {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-      }
+        .show-more-comments:hover {
+            background-color: #f0f0f0;
+        }
 
-      header {
-        padding: 0.6rem 1rem 0.4rem; /* 进一步减少移动端header边距 */
-        margin-bottom: 0.8rem; /* 修改：从1.5rem减少到0.8rem */
-      }
+        .hidden-comments {
+            display: none;
+        }
 
-      .header-content {
-        flex-direction: column;
-        gap: 0.8rem; /* 减少移动端元素间距 */
-      }
+        .hidden-comments.show {
+            display: block;
+        }
 
-      .avatar {
-        width: 70px;
-        height: 70px;
-      }
+        .collapse-comments {
+            color: #999;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+            padding: 8px 0;
+            border-radius: 6px;
+            background-color: #f8f8f8;
+            margin-top: 10px;
+            transition: background-color 0.2s ease;
+            display: none;
+        }
 
-      .header-badges {
-        margin-top: 0.5rem; /* 减少移动端徽章上边距 */
-      }
+        .collapse-comments:hover {
+            background-color: #f0f0f0;
+        }
 
-      .reminder {
-        margin: 0.8rem 1rem 1.5rem; /* 修改：顶部边距从1.5rem减少到0.8rem */
-        padding: 0.6rem 1.2rem 1rem; /* 增加底部内边距 */
-      }
+        .collapse-comments.show {
+            display: block;
+        }
 
-      .reminder h2 {
-        margin-bottom: 0.4rem; /* 进一步减少移动端标题下边距 */
-      }
-
-      .reminder p {
-        margin-bottom: 0.3rem; /* 进一步减少移动端段落间距 */
-        line-height: 1.4; /* 进一步减少移动端行高 */
-      }
-
-      .links {
-        grid-template-columns: 1fr;
-        gap: 1.2rem;
-        padding: 0 0.5rem;
-      }
-
-      .link-item a {
-        padding: 1.8rem 1.2rem;
-        font-size: 1.2rem;
-        min-height: 120px;
-      }
-
-      footer {
-        padding: 1.5rem 1rem; /* 增加移动端上下内边距 */
-      }
-    }
-
-    @media (max-width: 480px) {
-      .avatar {
-        width: 60px;
-        height: 60px;
-      }
-
-      header {
-        margin-bottom: 1rem; /* 修改：从2rem减少到1rem */
-      }
-
-      .reminder {
-        padding: 0.5rem 0.5rem 1rem; /* 增加底部内边距 */
-        margin: 1rem 0.8rem 1.2rem; /* 修改：顶部边距从2rem减少到1rem */
-      }
-
-      .reminder h2 {
-        margin-bottom: 0.3rem; /* 进一步减少小屏幕标题下边距 */
-      }
-
-      .reminder p {
-        margin-bottom: 0.25rem; /* 进一步减少小屏幕段落间距 */
-      }
-
-      .link-item a {
-        padding: 1.5rem 0.8rem;
-        font-size: 1.1rem;
-        min-height: 110px;
-      }
-
-      footer {
-        padding: 1.2rem 0.8rem; /* 增加小屏幕上下内边距 */
-      }
-    }
-
-    /* 用户偏好：减少动画 */
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-      }
-      
-      body {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-      }
-    }
-
-    /* 高对比度支持 */
-    @media (prefers-contrast: high) {
-      .reminder {
-        border-left-width: 6px;
-      }
-      
-      .badge {
-        border-width: 2px;
-      }
-    }
-
-    /* 性能优化：重置will-change属性 */
-    .link-item:not(:hover) {
-      will-change: auto;
-    }
-
-    .link-item a:not(:hover) {
-      will-change: auto;
-    }
-  </style>
+        @media (max-width: 480px) {
+            .comment-username {
+                font-weight: 800;
+                font-size: 15px;
+                color: #000;
+                text-shadow: 0.5px 0.5px 0px rgba(0,0,0,0.1);
+            }
+            
+            .comment-text {
+                font-weight: 300;
+                font-size: 14px;
+                color: #555;
+                margin-top: 2px;
+                display: block;
+            }
+        }
+    </style>
+    <script src="https://puc.poecdn.net/authenticated_preview_page/syncedState.bd4eeeb8e8e02052ee92.js"></script>
 </head>
 <body>
-  <!-- 简化的背景装饰 -->
-  <div class="bg-decoration"></div>
+    <div class="container">
+        <!-- Header Banner -->
+        <div class="header-banner"></div>
 
-  <header>
-    <div class="header-content">
-      <div class="avatar-container">
-        <!-- 添加loading="lazy"以延迟加载 -->
-        <img src="https://s2.loli.net/2025/09/25/VpgxqX8OKTdChM2.png" 
-             alt="Facebook头像" 
-             class="avatar"
-             loading="lazy"
-             decoding="async">
-      </div>
-      <div class="title-container">
-        <h1>⭐脸书专营店⭐</h1>
-        <div class="subtitle">🌟 专业 · 可靠 · 安全 🌟</div>
-        <div class="header-badges">
-          <span class="badge">🛡️ 品质保证</span>
-          <span class="badge">⚡ 快速发货</span>
-          <span class="badge">💬 24H客服</span>
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <div class="avatar"></div>
+            <div class="username">Kitagawa marin</div>
+            <div class="bio">人在失意的时候不要失态</div>
         </div>
-      </div>
+
+        <!-- Posts Section -->
+        <div class="posts-section">
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-avatar"></div>
+                    <div class="post-info">
+                        <div class="post-username">Kitagawa marin</div>
+                        <div class="post-time">4小时前</div>
+                    </div>
+                    <div class="more-btn">⋯</div>
+                </div>
+                <div class="post-content">
+                    🔥 如果您要购买替换白号，认准本店，品质保证，服务至上！<br>
+                    🛡️ 替换白号<span class="highlight">质保2天</span>，期间出现问题都可以找客服补货，售后无忧<br>
+                    🌍 本店所有替换账号请使用<span class="highlight">香港节点</span>登录，确保最佳使用体验<br>
+                    ⚠️ Facebook账号使用不当容易造成封禁，登录后请勿进行任何操作，安全第一
+                </div>
+                
+                <div class="comments-section">
+                    <div class="comment">
+                        <div class="comment-avatar" style="background: linear-gradient(45deg, #ff6b6b, #feca57); background-size: cover;"></div>
+                        <div class="comment-content">
+                            <span class="comment-username">小明同学</span>
+                            <span class="comment-text">老板靠谱吗？价格怎么样？</span>
+                            <div class="comment-time">3小时前</div>
+                        </div>
+                    </div>
+                    
+                    <div class="comment">
+                        <div class="comment-avatar" style="background: linear-gradient(45deg, #74b9ff, #0984e3); background-size: cover;"></div>
+                        <div class="comment-content">
+                            <span class="comment-username">数码达人</span>
+                            <span class="comment-text">我买过好几次了，质量不错👍</span>
+                            <div class="comment-time">2小时前</div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-more-comments" onclick="toggleComments('comments1')">
+                        查看全部12条评论
+                    </div>
+                    
+                    <div class="hidden-comments" id="comments1">
+                        <div class="comment">
+                            <div class="comment-avatar" style="background: linear-gradient(45deg, #a29bfe, #6c5ce7); background-size: cover;"></div>
+                            <div class="comment-content">
+                                <span class="comment-username">游戏玩家007</span>
+                                <span class="comment-text">香港节点稳定吗？会不会卡？</span>
+                                <div class="comment-time">2小时前</div>
+                            </div>
+                        </div>
+                        
+                        <div class="comment">
+                            <div class="comment-avatar" style="background: linear-gradient(45deg, #fd79a8, #e84393); background-size: cover;"></div>
+                            <div class="comment-content">
+                                <span class="comment-username">爱购物的小仙女</span>
+                                <span class="comment-text">质保2天太短了吧😅</span>
+                                <div class="comment-time">2小时前</div>
+                            </div>
+                        </div>
+                        
+                        <div class="comment">
+                            <div class="comment-avatar" style="background: linear-gradient(45deg, #fdcb6e, #e17055); background-size: cover;"></div>
+                            <div class="comment-content">
+                                <span class="comment-username">技术宅男</span>
+                                <span class="comment-text">Facebook现在管得越来越严了</span>
+                                <div class="comment-time">1小时前</div>
+                            </div>
+                        </div>
+                        
+                        <div class="comment">
+                            <div class="comment-avatar" style="background: linear-gradient(45deg, #55a3ff, #003d82); background-size: cover;"></div>
+                            <div class="comment-content">
+                                <span class="comment-username">网络冲浪者</span>
+                                <span class="comment-text">有没有其他平台的账号？</span>
+                                <div class="comment-time">1小时前</div>
+                            </div>
+                        </div>
+                        
+                        <div class="comment">
+                            <div class="comment-avatar" style="background: linear-gradient(45deg, #00b894, #00cec9); background-size: cover;"></div>
+                            <div class="comment-content">
+                                <span class="comment-username">省钱小能手</span>
+                                <span class="comment-text">有优惠券吗？批量购买有折扣不？</span>
+                                <div class="comment-time">1小时前</div>
+                            </div>
+                        </div>
+                        
+                        <div class="comment">
+                            <div class="comment-avatar" style="background: linear-gradient(45deg, #ff7675, #d63031); background-size: cover;"></div>
+                            <div class="comment-content">
+                                <span class="comment-username">老司机</span>
+                                <span class="comment-text">之前买的被封了，能补货吗？</span>
+                                <div class="comment-time">50分钟前</div>
+                            </div>
+                        </div>
+                        
+                        <div class="comment">
+                            <div class="comment-avatar" style="background: linear-gradient(45deg, #fab1a0, #e17055); background-size: cover;"></div>
+                            <div class="comment-content">
+                                <span class="comment-username">新手小白</span>
+                                <span class="comment-text">第一次买，有使用教程吗？</span>
+                                <div class="comment-time">40分钟前</div>
+                            </div>
+                        </div>
+                        
+                        <div class="comment">
+                            <div class="comment-avatar" style="background: linear-gradient(45deg, #81ecec, #00b894); background-size: cover;"></div>
+                            <div class="comment-content">
+                                <span class="comment-username">社交达人</span>
+                                <span class="comment-text">支持什么付款方式？</span>
+                                <div class="comment-time">30分钟前</div>
+                            </div>
+                        </div>
+                        
+                        <div class="comment">
+                            <div class="comment-avatar" style="background: linear-gradient(45deg, #a29bfe, #74b9ff); background-size: cover;"></div>
+                            <div class="comment-content">
+                                <span class="comment-username">程序猿小哥</span>
+                                <span class="comment-text">API接口稳定吗？有文档不？</span>
+                                <div class="comment-time">20分钟前</div>
+                            </div>
+                        </div>
+                        
+                        <div class="comment">
+                            <div class="comment-avatar" style="background: linear-gradient(45deg, #fd79a8, #fdcb6e); background-size: cover;"></div>
+                            <div class="comment-content">
+                                <span class="comment-username">夜猫子</span>
+                                <span class="comment-text">24小时在线客服吗？</span>
+                                <div class="comment-time">10分钟前</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="collapse-comments" id="collapse1" onclick="toggleComments('comments1')">
+                        收起评论
+                    </div>
+                </div>
+            </div>
+
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-avatar"></div>
+                    <div class="post-info">
+                        <div class="post-username">Kitagawa marin</div>
+                        <div class="post-time">6小时前</div>
+                    </div>
+                    <div class="more-btn">⋯</div>
+                </div>
+                <div class="post-content">
+                    <div class="link-line">
+                        <span class="link-label">🏪 官方店铺</span>
+                        <a href="https://fh10.zmfaka.cn/shop/24XZCD9E" target="_blank" class="link-url">https://fh10.zmfaka.cn/shop/24XZCD9E</a>
+                    </div>
+                    <div class="link-line">
+                        <span class="link-label">👥 售后群组</span>
+                        <a href="https://t.me/fb180" target="_blank" class="link-url">https://t.me/fb180</a>
+                    </div>
+                    <div class="link-line">
+                        <span class="link-label">🤖 售后客服</span>
+                        <a href="https://t.me/Facebookkf_bot" target="_blank" class="link-url">https://t.me/Facebookkf_bot</a>
+                    </div>
+                    <div class="link-line">
+                        <span class="link-label">🌐 脸书官网</span>
+                        <a href="https://www.facebook.com/" target="_blank" class="link-url">https://www.facebook.com/</a>
+                    </div>
+                </div>
+                
+                <div class="comments-section">
+                    <div class="comment">
+                        <div class="comment-avatar" style="background: linear-gradient(45deg, #ff9ff3, #f368e0); background-size: cover;"></div>
+                        <div class="comment-content">
+                            <span class="comment-username">购物小达人</span>
+                            <span class="comment-text">链接都能正常访问吗？</span>
+                            <div class="comment-time">5小时前</div>
+                        </div>
+                    </div>
+                    
+                    <div class="comment">
+                        <div class="comment-avatar" style="background: linear-gradient(45deg, #48dbfb, #0abde3); background-size: cover;"></div>
+                        <div class="comment-content">
+                            <span class="comment-username">网络专家</span>
+                            <span class="comment-text">Telegram群组很活跃，客服回复很快👍</span>
+                            <div class="comment-time">4小时前</div>
+                        </div>
+                    </div>
+                    
+                    <div class="show-more-comments" onclick="toggleComments('comments2')">
+                        查看全部4条评论
+                    </div>
+                    
+                    <div class="hidden-comments" id="comments2">
+                        <div class="comment">
+                            <div class="comment-avatar" style="background: linear-gradient(45deg, #ffeaa7, #fdcb6e); background-size: cover;"></div>
+                            <div class="comment-content">
+                                <span class="comment-username">科技爱好者</span>
+                                <span class="comment-text">官方店铺界面挺专业的，看起来很靠谱</span>
+                                <div class="comment-time">3小时前</div>
+                            </div>
+                        </div>
+                        
+                        <div class="comment">
+                            <div class="comment-avatar" style="background: linear-gradient(45deg, #ff6b6b, #ee5a24); background-size: cover;"></div>
+                            <div class="comment-content">
+                                <span class="comment-username">老用户</span>
+                                <span class="comment-text">已经收藏了所有链接，方便以后联系</span>
+                                <div class="comment-time">2小时前</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="collapse-comments" id="collapse2" onclick="toggleComments('comments2')">
+                        收起评论
+                    </div>
+                </div>
+            </div>
+
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-avatar"></div>
+                    <div class="post-info">
+                        <div class="post-username">Kitagawa marin</div>
+                        <div class="post-time">8小时前</div>
+                    </div>
+                    <div class="more-btn">⋯</div>
+                </div>
+                <div class="post-content">
+                    <a href="https://moments.moe/" target="_blank">晚上又偷吃夜宵了😭😭😭</a><br>
+                    明天多骑10km弥补一下
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="visitors">
+                <span class="heart-icon">♡</span>
+                <span>91位访客</span>
+            </div>
+        </div>
     </div>
-  </header>
 
-  <section class="reminder">
-    <h2>🎯 温馨提示</h2>
-    <p>🔥 如果您要购买<span class="highlight">脸书白号</span>，认准本店，品质保证，服务至上！</p>
-    <p>🛡️ 脸书白号<span class="highlight">质保2天</span>，期间出现问题都可以找客服补货，售后无忧</p>
-    <p>🌍 本店所有脸书账号请使用<span class="highlight">香港节点</span>登录，确保最佳使用体验</p>
-    <p>⚠️ Facebook账号使用不当容易造成封禁，登录后请勿进行任何操作，安全第一</p>
-  </section>
-  
-  <main>
-    <div class="links">
-      <div class="link-item">
-        <a href="https://fh10.zmfaka.cn/item/zge49o" target="_blank" rel="noopener">
-          <span class="icon">🛒</span>
-          <span class="text">立即购买</span>
-        </a>
-      </div>
-      <div class="link-item">
-        <a href="https://mbasic.facebook.com" target="_blank" rel="noopener">
-          <span class="icon">🌐</span>
-          <span class="text">脸书官网</span>
-        </a>
-      </div>
-      <div class="link-item">
-        <a href="https://t.me/Facebookkf_bot" target="_blank" rel="noopener">
-          <span class="icon">💬</span>
-          <span class="text">专属客服</span>
-        </a>
-      </div>
-      <div class="link-item">
-        <a href="https://t.me/fb180" target="_blank" rel="noopener">
-          <span class="icon">👥</span>
-          <span class="text">售后群组</span>
-        </a>
-      </div>
-    </div>
-  </main>
-  
-  <footer>
-    <p>© 2018 脸书专营店 | 您的信赖之选 💎</p>
-  </footer>
-
-  <script>
-    // 性能优化的点击动画
-    function addClickEffect(element) {
-      element.style.transform = 'scale(0.95) translateZ(0)';
-      element.style.transition = 'transform 0.1s ease';
-      
-      // 使用setTimeout而不是addEventListener来减少内存占用
-      setTimeout(() => {
-        element.style.transform = '';
-        element.style.transition = 'all 0.2s ease';
-      }, 100);
-    }
-
-    // 使用事件委托来减少事件监听器数量
-    document.querySelector('.links').addEventListener('click', function(e) {
-      const link = e.target.closest('.link-item a');
-      if (link) {
-        addClickEffect(link);
-      }
-    });
-
-    // 智能的性能管理
-    class PerformanceManager {
-      constructor() {
-        this.isLowPowerMode = false;
-        this.animationsPaused = false;
-        this.inactivityTimer = null;
-        this.init();
-      }
-
-      init() {
-        this.detectLowPowerMode();
-        this.setupVisibilityChange();
-        this.setupInactivityTimer();
-        
-        // 在低端设备上自动启用性能模式
-        if (this.isLowPowerMode) {
-          this.enablePerformanceMode();
+    <script>
+        function toggleComments(commentsId) {
+            const hiddenComments = document.getElementById(commentsId);
+            const showMoreBtn = hiddenComments.previousElementSibling;
+            const collapseBtn = hiddenComments.nextElementSibling;
+            
+            if (hiddenComments.classList.contains('show')) {
+                hiddenComments.classList.remove('show');
+                showMoreBtn.style.display = 'block';
+                collapseBtn.classList.remove('show');
+            } else {
+                hiddenComments.classList.add('show');
+                showMoreBtn.style.display = 'none';
+                collapseBtn.classList.add('show');
+            }
         }
-      }
-
-      detectLowPowerMode() {
-        // 检测设备性能指标
-        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-        const memory = navigator.deviceMemory;
-        const cores = navigator.hardwareConcurrency;
-
-        this.isLowPowerMode = (
-          (memory && memory < 4) ||
-          (cores && cores < 4) ||
-          (connection && connection.effectiveType && 
-           ['slow-2g', '2g', '3g'].includes(connection.effectiveType))
-        );
-      }
-
-      enablePerformanceMode() {
-        // 禁用所有动画
-        const style = document.createElement('style');
-        style.textContent = `
-          *, *::before, *::after {
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            transition-duration: 0.01ms !important;
-          }
-        `;
-        document.head.appendChild(style);
-        
-        // 移除背景装饰
-        const bgDecoration = document.querySelector('.bg-decoration');
-        if (bgDecoration) {
-          bgDecoration.style.display = 'none';
-        }
-      }
-
-      pauseAnimations() {
-        if (!this.animationsPaused) {
-          document.body.style.animationPlayState = 'paused';
-          this.animationsPaused = true;
-        }
-      }
-
-      resumeAnimations() {
-        if (this.animationsPaused && !this.isLowPowerMode) {
-          document.body.style.animationPlayState = 'running';
-          this.animationsPaused = false;
-        }
-      }
-
-      resetInactivityTimer() {
-        clearTimeout(this.inactivityTimer);
-        this.resumeAnimations();
-        
-        // 30秒不活动后暂停动画
-        this.inactivityTimer = setTimeout(() => {
-          this.pauseAnimations();
-        }, 30000);
-      }
-
-      setupVisibilityChange() {
-        document.addEventListener('visibilitychange', () => {
-          if (document.hidden) {
-            this.pauseAnimations();
-          } else {
-            this.resumeAnimations();
-            this.resetInactivityTimer();
-          }
-        });
-      }
-
-      setupInactivityTimer() {
-        // 节流的事件处理
-        let throttleTimer = null;
-        const handleActivity = () => {
-          if (!throttleTimer) {
-            throttleTimer = setTimeout(() => {
-              this.resetInactivityTimer();
-              throttleTimer = null;
-            }, 100); // 100ms节流
-          }
-        };
-
-        // 监听用户活动
-        ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(event => {
-          document.addEventListener(event, handleActivity, { passive: true });
-        });
-
-        // 初始化
-        this.resetInactivityTimer();
-      }
-    }
-
-    // 初始化性能管理器
-    const performanceManager = new PerformanceManager();
-
-    // 预加载关键资源
-    const preloadLink = document.createElement('link');
-    preloadLink.rel = 'dns-prefetch';
-    preloadLink.href = '//fh10.zmfaka.cn';
-    document.head.appendChild(preloadLink);
-
-    const preloadLink2 = document.createElement('link');
-    preloadLink2.rel = 'dns-prefetch';
-    preloadLink2.href = '//t.me';
-    document.head.appendChild(preloadLink2);
-  </script>
+    </script>
 </body>
 </html>
-
