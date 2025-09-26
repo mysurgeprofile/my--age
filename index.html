@@ -84,10 +84,10 @@
       margin-top: 0.3rem;
     }
     .link-btn {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 14px;
+      gap: 7px;  /* 缩小图标和文字的间距 */
       background: linear-gradient(90deg, #ffe5f7 0%, #b5e4ff 100%);
       color: #ff5eae;
       text-decoration: none;
@@ -108,12 +108,15 @@
       transform: translateY(-3px) scale(1.06) rotate(-2deg);
     }
     .link-btn i {
-      font-size: 1.25em;
+      font-size: 1.22em;
       filter: drop-shadow(0 2px 2px #fff5);
+      vertical-align: middle;
+      margin-right: 2px;
     }
     .emoji {
       font-size: 1.3em;
       margin-right: 0.35em;
+      display: none; /* 没有表情就隐藏 */
     }
     .bubble {
       position: absolute;
@@ -146,10 +149,10 @@
       <h2><span class="emoji">🐾</span>脸书卖家</h2>
       <div class="desc">喜欢脸书和PUBG的软萌小朋友~<br>欢迎来和我玩耍！</div>
       <div class="links">
-        <a class="link-btn" href="https://fh10.zmfaka.cn/shop/24XZCD9E" target="_blank"><i class="fas fa-shopping-cart"></i> <span class="emoji"></span>卡网</a>
-        <a class="link-btn" href="https://t.me/fb180" target="_blank"><i class="fab fa-telegram-plane"></i> <span class="emoji"></span>TG群</a>
-        <a class="link-btn" href="https://t.me/Facebookkf_bot"><i class="fas fa-headset"></i> <span class="emoji"></span>客服</a>
-        <a class="link-btn" href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i> <span class="emoji"></span>脸书官网</a>
+        <a class="link-btn" href="https://fh10.zmfaka.cn/shop/24XZCD9E" target="_blank"><i class="fas fa-shopping-cart"></i>卡网</a>
+        <a class="link-btn" href="https://t.me/fb180" target="_blank"><i class="fab fa-telegram-plane"></i>TG群</a>
+        <a class="link-btn" href="https://t.me/Facebookkf_bot"><i class="fas fa-headset"></i>客服</a>
+        <a class="link-btn" href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i>脸书官网</a>
         <!-- 更多可爱链接 -->
       </div>
     </div>
