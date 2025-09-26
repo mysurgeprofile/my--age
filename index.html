@@ -398,14 +398,65 @@
       color: #555;
     }
 
+    /* 高亮文字样式 */
     .highlight {
-      font-weight: 700;
-      color: #fff;
       background: linear-gradient(45deg, #FFD700, #FFA500);
-      padding: 0.2rem 0.6rem;
-      border-radius: 15px;
-      display: inline-block;
+      color: #fff;
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      font-weight: 700;
       box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+      position: relative;
+      display: inline-block;
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% {
+        box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+        transform: scale(1);
+      }
+      50% {
+        box-shadow: 0 4px 15px rgba(255, 215, 0, 0.5);
+        transform: scale(1.02);
+      }
+    }
+
+    /* 高亮文字装饰效果 */
+    .highlight::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #FFD700, #FFA500, #FF69B4, #667eea);
+      border-radius: 8px;
+      z-index: -1;
+      background-size: 300% 300%;
+      animation: shimmer 3s ease infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    /* 移动端高亮优化 */
+    @media (max-width: 768px) {
+      .highlight {
+        animation: none;
+        transform: none;
+      }
+      
+      .highlight::before {
+        animation: none;
+        background: linear-gradient(45deg, #FFD700, #FFA500);
+      }
     }
 
     main {
@@ -656,7 +707,7 @@
 
   <section class="reminder">
     <h2>🎯 温馨提示</h2>
-    <p>🔥 如果您要购买脸书白号，认准本店，品质保证，服务至上！</p>
+    <p>🔥 如果您要购买<span class="highlight">脸书白号</span>，认准本店，品质保证，服务至上！</p>
     <p>🛡️ 脸书白号<span class="highlight">质保2天</span>，期间出现问题都可以找客服补货，售后无忧</p>
     <p>🌍 本店所有脸书账号请使用<span class="highlight">香港节点</span>登录，确保最佳使用体验</p>
     <p>⚠️ Facebook账号使用不当容易造成封禁，登录后请勿进行任何操作，安全第一</p>
