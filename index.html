@@ -311,7 +311,7 @@
             border-radius: 6px;
             background-color: #f8f9fa;
             margin-top: 8px;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             user-select: none;
         }
 
@@ -673,6 +673,7 @@
                 const commentDiv = document.createElement('div');
                 commentDiv.className = 'comment';
                 commentDiv.style.animationDelay = `${index * 0.05}s`;
+                commentDiv.setAttribute('data-dynamic', 'true');
                 
                 commentDiv.innerHTML = `
                     <div class="comment-avatar" style="background: ${comment.gradient};"></div>
@@ -722,12 +723,23 @@
                 const commentsId = button.dataset.comments;
                 const totalCount = button.dataset.total;
                 const container = document.getElementById(commentsId);
+                const commentsSection = button.closest('.comments-section');
                 
                 if (container.classList.contains('comments-visible')) {
                     // 收起评论
                     container.classList.remove('comments-visible');
                     container.classList.add('comments-hidden');
                     button.textContent = `查看全部${totalCount}条评论`;
+                    
+                    // 将按钮移回原位置（在固定评论和隐藏评论容器之间）
+                    const fixedComments = commentsSection.querySelectorAll('.comment:not([data-dynamic])');
+                    if (fixedComments.length > 0) {
+                        // 在最后一个固定评论后插入按钮
+                        fixedComments[fixedComments.length - 1].after(button);
+                    } else {
+                        // 如果没有固定评论，插入到容器前
+                        container.before(button);
+                    }
                     
                     // 清空内容节省内存
                     setTimeout(() => {
@@ -758,6 +770,9 @@
                     
                     button.textContent = '收起评论';
                     button.style.pointerEvents = 'auto';
+                    
+                    // 将按钮移动到评论列表最下方
+                    container.after(button);
                 }
             }
 
