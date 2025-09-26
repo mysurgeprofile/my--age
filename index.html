@@ -239,52 +239,14 @@
       color: #555;
     }
 
-    /* 高亮文字样式 */
+    /* 简化的高亮文字样式 - 去掉复杂动画和装饰 */
     .highlight {
-      background: linear-gradient(45deg, #FFD700, #FFA500);
-      color: #fff;
+      background: #FFD700;
+      color: #333;
       padding: 0.2rem 0.5rem;
-      border-radius: 6px;
+      border-radius: 4px;
       font-weight: 700;
-      box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
-      position: relative;
       display: inline-block;
-      animation: pulse-glow 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse-glow {
-      0%, 100% {
-        box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
-        transform: scale(1);
-      }
-      50% {
-        box-shadow: 0 4px 15px rgba(255, 215, 0, 0.5);
-        transform: scale(1.02);
-      }
-    }
-
-    /* 高亮文字装饰效果 */
-    .highlight::before {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(45deg, #FFD700, #FFA500, #FF69B4, #667eea);
-      border-radius: 8px;
-      z-index: -1;
-      background-size: 300% 300%;
-      animation: shimmer 3s ease infinite;
-    }
-
-    @keyframes shimmer {
-      0%, 100% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
     }
 
     /* 移动端高亮优化 */
@@ -292,11 +254,6 @@
       .highlight {
         animation: none;
         transform: none;
-      }
-      
-      .highlight::before {
-        animation: none;
-        background: linear-gradient(45deg, #FFD700, #FFA500);
       }
     }
 
