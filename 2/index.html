@@ -1,60 +1,66 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>我的个人导航站</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
 </head>
 <body>
-  <header>
-    <img src="assets/avatar.png" alt="我的头像" class="avatar">
-    <div class="brand">我的个人导航站</div>
+  <header class="site-header">
+    <div class="header-inner">
+      <img src="assets/avatar.png" alt="我的头像" class="avatar" />
+      <div class="brand">我的个人导航站</div>
+    </div>
   </header>
 
-  <main>
+  <main class="container">
     <!-- 常用网站 -->
-    <section>
+    <section class="card">
       <h2>常用网站</h2>
       <div class="grid">
-        <a href="https://github.com" target="_blank">
-          <img src="assets/github.svg" alt="GitHub">
-          GitHub
+        <a class="tile" href="https://github.com" target="_blank" rel="noopener">
+          <img class="icon" src="assets/github.svg" alt="GitHub">
+          <span>GitHub</span>
         </a>
-        <a href="https://mail.google.com" target="_blank">
-          <img src="assets/gmail.svg" alt="Gmail">
-          Gmail
+
+        <a class="tile" href="https://mail.google.com" target="_blank" rel="noopener">
+          <img class="icon" src="assets/gmail.svg" alt="Gmail">
+          <span>Gmail</span>
         </a>
-        <a href="https://notion.so" target="_blank">
-          <img src="assets/notion.svg" alt="Notion">
-          Notion
+
+        <a class="tile" href="https://notion.so" target="_blank" rel="noopener">
+          <img class="icon" src="assets/notion.svg" alt="Notion">
+          <span>Notion</span>
         </a>
       </div>
     </section>
 
     <!-- 效率工具 -->
-    <section>
+    <section class="card">
       <h2>效率工具</h2>
       <div class="grid">
-        <a href="https://calendar.google.com" target="_blank">
-          <img src="assets/calendar.svg" alt="Calendar">
-          Google 日历
+        <a class="tile" href="https://calendar.google.com" target="_blank" rel="noopener">
+          <img class="icon" src="assets/calendar.svg" alt="Calendar">
+          <span>Google 日历</span>
         </a>
-        <a href="https://drive.google.com" target="_blank">
-          📂 Google 云端硬盘
+
+        <a class="tile" href="https://drive.google.com" target="_blank" rel="noopener">
+          <img class="icon" src="assets/drive.svg" alt="Google 云端硬盘">
+          <span>Google 云端硬盘</span>
         </a>
       </div>
     </section>
 
     <!-- 关于我 -->
-    <section>
+    <section class="card">
       <h2>关于我</h2>
-      <p>这里可以写一句自我介绍，比如：“全栈开发者，热爱简洁高效的设计。”</p>
+      <p>全栈开发者，热爱简洁高效的设计。喜欢用最少的东西做最有价值的事。</p>
     </section>
   </main>
 
-  <footer>
+  <footer class="site-footer">
     <p>© 2025 我的个人导航站</p>
   </footer>
 </body>
