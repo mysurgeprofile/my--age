@@ -2,159 +2,46 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>脸书卖家</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Google Fonts 手写圆润风格 -->
-  <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Baloo+Bhaijaan+2:wght@700&display=swap" rel="stylesheet">
-  <!-- Font Awesome 图标库 -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
-  <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      width: 100vw;
-      background: linear-gradient(135deg, #ffd6ec 0%, #b5e4ff 100%);
-      font-family: 'Baloo Bhaijaan 2', 'ZCOOL KuaiLe', cursive, sans-serif;
-      transition: background 0.5s;
-      overflow-x: hidden;
-    }
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 6vh;
-      z-index: 1;
-      position: relative;
-    }
-    .glass-card {
-      background: rgba(255,255,255,0.65);
-      border-radius: 30px;
-      box-shadow: 0 8px 32px 0 #ffb8e66b;
-      backdrop-filter: blur(8px);
-      padding: 2.5rem 1.5rem 2rem 1.5rem;
-      max-width: 420px;
-      width: 90vw;
-      text-align: center;
-      margin-bottom: 2.5rem;
-      border: 2.5px solid #ffe5f7;
-      animation: bubble 4s ease-in-out infinite;
-    }
-    @keyframes bubble {
-      0%, 100% { transform: translateY(0);}
-      50% { transform: translateY(-8px);}
-    }
-    .avatar {
-      width: 104px;
-      border-radius: 50%;
-      border: 4px solid #fff1f7;
-      margin-bottom: 1rem;
-      box-shadow: 0 2px 20px #ffb8e6bb;
-      background: #fff;
-      transition: transform 0.3s;
-      position: relative;
-    }
-    .avatar:hover {
-      transform: scale(1.12) rotate(4deg);
-    }
-    h2 {
-      margin: 0.3rem 0 0.7rem 0;
-      color: #ff5eae;
-      letter-spacing: 2px;
-      font-family: 'ZCOOL KuaiLe', cursive, sans-serif;
-      font-size: 2.1rem;
-      text-shadow: 0 2px 8px #ffbee6a0;
-    }
-    .desc {
-      color: #6c44a0;
-      margin-bottom: 1.2rem;
-      font-size: 1.16rem;
-      letter-spacing: 1px;
-      line-height: 1.7;
-      background: #fff7fd;
-      border-radius: 14px;
-      padding: 0.5em 1em;
-      display: inline-block;
-    }
-    .links {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-      align-items: stretch;
-      margin-top: 0.3rem;
-    }
-    .link-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-      background: linear-gradient(90deg, #ffe5f7 0%, #b5e4ff 100%);
-      color: #ff5eae;
-      text-decoration: none;
-      font-weight: 700;
-      border-radius: 20px;
-      padding: 1rem 1.3rem;
-      font-size: 1.08rem;
-      box-shadow: 0 6px 24px #b5e4ff55;
-      transition: transform 0.16s, box-shadow 0.16s, background 0.16s, color 0.16s;
-      border: 2.5px solid #ffbee6;
-      position: relative;
-      overflow: hidden;
-    }
-    .link-btn:hover {
-      background: linear-gradient(90deg, #ffb8e6 0%, #b5e4ff 100%);
-      color: #fff;
-      box-shadow: 0 12px 32px #ffb8e655;
-      transform: translateY(-3px) scale(1.06) rotate(-2deg);
-    }
-    .link-btn i {
-      font-size: 1.22em;
-      filter: drop-shadow(0 2px 2px #fff5);
-      vertical-align: middle;
-      margin-right: 2px;
-    }
-    .emoji {
-      font-size: 1.3em;
-      margin-right: 0.35em;
-      display: none; /* 没有表情就隐藏 */
-    }
-    .bubble {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0.30;
-      z-index: 0;
-      animation: floatBubbles 12s infinite linear;
-    }
-    @keyframes floatBubbles {
-      0% { transform: translateY(0) scale(1);}
-      100% { transform: translateY(-110vh) scale(1.4);}
-    }
-    /* 移动端优化 */
-    @media (max-width: 600px) {
-      .glass-card { padding: 1.5rem 0.5rem;}
-      .links .link-btn { font-size: 0.98rem; padding: 0.8rem 0.6rem;}
-      .avatar { width: 88px;}
-    }
-  </style>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>我的高级导航页</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- 可爱气泡背景 -->
-  <div class="bubble" style="background:#fffbed; width:70px; height:70px; left:5vw; top:85vh; animation-delay:0s;"></div>
-  <div class="bubble" style="background:#ffe6ee; width:35px; height:35px; left:80vw; top:95vh; animation-delay:2s;"></div>
-  <div class="bubble" style="background:#b5e4ff; width:50px; height:50px; left:60vw; top:88vh; animation-delay:4s;"></div>
-  <div class="bubble" style="background:#ffe5f7; width:42px; height:42px; left:28vw; top:93vh; animation-delay:1s;"></div>
-  <div class="container">
-    <div class="glass-card">
-      <img class="avatar" src="https://s2.loli.net/2025/09/26/a6Zl9LmJvICxY7s.jpg" alt="可爱头像">
-      <h2><span class="emoji">🐾</span>脸书卖家</h2>
-      <div class="desc">喜欢脸书和PUBG的软萌小朋友~<br>欢迎来和我玩耍！</div>
-      <div class="links">
-        <a class="link-btn" href="https://fh10.zmfaka.cn/shop/24XZCD9E"><i class="fas fa-shopping-cart"></i>卡网</a>
-        <a class="link-btn" href="https://t.me/fb180"><i class="fab fa-telegram-plane"></i>TG群</a>
-        <a class="link-btn" href="https://t.me/Facebookkf_bot"><i class="fas fa-headset"></i>客服</a>
-        <a class="link-btn" href="https://www.facebook.com/"><i class="fab fa-facebook"></i>脸书官网</a>
-        <!-- 更多可爱链接 -->
+  <div class="background"></div>
+  <div class="container glass">
+    <div class="profile">
+      <img src="https://i.pravatar.cc/120?img=5" alt="Avatar" class="avatar">
+      <div>
+        <h2 class="username">bsjsksj9293</h2>
+        <p class="bio">Welcome to my world. Explore your favorites.</p>
       </div>
+    </div>
+    <form class="search-bar" action="https://www.bing.com/search">
+      <input type="text" name="q" placeholder="🔍 搜索你想要的一切..." autocomplete="off">
+    </form>
+    <div class="nav-list">
+      <a href="https://github.com/" class="nav-item">
+        <i class="ri-github-fill"></i><span>GitHub</span>
+      </a>
+      <a href="https://www.zhihu.com/" class="nav-item">
+        <i class="ri-zhihu-fill"></i><span>知乎</span>
+      </a>
+      <a href="https://mail.google.com/" class="nav-item">
+        <i class="ri-mail-fill"></i><span>邮箱</span>
+      </a>
+      <a href="https://www.bilibili.com/" class="nav-item">
+        <i class="ri-bilibili-fill"></i><span>B站</span>
+      </a>
+      <a href="https://www.youtube.com/" class="nav-item">
+        <i class="ri-youtube-fill"></i><span>YouTube</span>
+      </a>
+      <a href="https://chat.openai.com/" class="nav-item">
+        <i class="ri-robot-2-fill"></i><span>ChatGPT</span>
+      </a>
+    </div>
+    <div class="footer">
+      <span>© 2025 bsjsksj9293</span>
     </div>
   </div>
 </body>
